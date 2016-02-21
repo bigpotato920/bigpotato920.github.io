@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>用pelican和gitpages搭建博客 - bigpotato's blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://bigpotato920.github.io/pelcian_blog.html">
+
+        <meta name="author" content="bigpotato" />
+        <meta name="keywords" content="静态网站生成器,pelican,github,python" />
+        <meta name="description" content="利用pelican生成静态网站，在github上进行托管" />
+
+        <meta property="og:site_name" content="bigpotato's blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="用pelican和gitpages搭建博客"/>
+        <meta property="og:url" content="http://bigpotato920.github.io/pelcian_blog.html"/>
+        <meta property="og:description" content="利用pelican生成静态网站，在github上进行托管"/>
+        <meta property="article:published_time" content="2014-02-15" />
+            <meta property="article:section" content="tools" />
+            <meta property="article:tag" content="静态网站生成器" />
+            <meta property="article:tag" content="pelican" />
+            <meta property="article:tag" content="github" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:author" content="bigpotato" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://bigpotato920.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://bigpotato920.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://bigpotato920.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://bigpotato920.github.io/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://bigpotato920.github.io/" class="navbar-brand">
+bigpotato's blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://bigpotato920.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://bigpotato920.github.io/pelcian_blog.html"
+                       rel="bookmark"
+                       title="Permalink to 用pelican和gitpages搭建博客">
+                        用pelican和gitpages搭建博客
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-02-15T00:00:00+08:00"> Sat 15 February 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://bigpotato920.github.io/tag/jing-tai-wang-zhan-sheng-cheng-qi.html">静态网站生成器</a>
+        /
+	<a href="http://bigpotato920.github.io/tag/pelican.html">pelican</a>
+        /
+	<a href="http://bigpotato920.github.io/tag/github.html">github</a>
+        /
+	<a href="http://bigpotato920.github.io/tag/python.html">python</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h2>用pelican和gitpages搭建博客</h2>
+<p>一直以来都想自己搭建一个博客，对平时学习的点滴进行记录，苦于一直没空，最近放假开始着手进行，折腾了 几天总算有点眉目，现在记录下搭建博客的整个过程算是对这几天折腾的一个总结，顺便能给后来人一些经验，少一些无谓的折腾。</p>
+<p>搭建博客之前也在网上搜集了写资料，发现这种静态网站生成器很多，而且许多工具像wordpress这种已经做的相当自动化，门槛很低；还有Jekyll、Octopress基于ruby的网站生成器用于也很多，但苦于不会php，ruby也懒得去学，最终找到一款基于python的网站生成器pelican，其网站模板是用Flask的默认模板语言Jinja2，以前有过学习。</p>
+<p>学习新东西的通用思路，打开google找到pelican的项目主页浏览它的官方教程。这里要说的是其实学习工具类的东西最好还是去官网，因为随着工具的升级，以前的方法可能就不再适用，而官网会对教程做持续性更新，是最权威的。由于pelcian的安装，博客的编写，博客本地的预览等部分[官网的教程][]写的已经很详细而且也比较简单，这里就不在赘述。</p>
+<p>1.博客样式设置</p>
+<p>这里说说博客主题的设置，当用pelcian生成网站后需要自己安装相应的主题来对网站界面进行美化，我选择<a href="https://github.com/DandyDev/pelican-bootstrap3">pelican-bootstrap3</a>作为我博客的主题。在github上下载主题后，在pelican生成的网站的pelicanconf.py文件中设置主题的路径THEME = 'path of pelican-bootstrap3',重新生成网站后来本地便可以预览到主题的效果。对网站的默认字体不是很喜欢，这里进行自定义，下载<a href="https://github.com/ForestWatchers/pelican-theme/blob/master/static/font/Lato-Regular.ttf">Lato</a>作为英文的默认字体保存到<code>pelican-bootstrap3/static/fonts</code>下，并在style.css设置启用该字体</p>
+<div class="highlight"><pre><span class="code-line"><span class="k">@font-face</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="nt">font-family</span><span class="o">:</span> <span class="s1">&#39;Lato&#39;</span><span class="o">;</span></span>
+<span class="code-line">    <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;../fonts/Lato-Regular.ttf&#39;</span><span class="o">);</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>对中文字体修改</p>
+<div class="highlight"><pre><span class="code-line"><span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nc">.h1</span><span class="o">,</span><span class="nc">.h2</span><span class="o">,</span><span class="nc">.h3</span><span class="o">,</span><span class="nc">.h4</span><span class="o">,</span><span class="nc">.h5</span><span class="o">,</span><span class="nc">.h6</span> <span class="p">{</span><span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Microsoft YaHei&#39;</span><span class="o">,</span> <span class="err">微软雅黑</span><span class="o">,</span> <span class="s2">&quot;Lato&quot;</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;}</span></span>
+<span class="code-line"><span class="nt">p</span><span class="o">,</span> <span class="nt">a</span> <span class="o">,</span><span class="nt">body</span> <span class="p">{</span><span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Microsoft YaHei&#39;</span><span class="o">,</span> <span class="err">微软雅黑</span><span class="o">,</span> <span class="s2">&quot;Lato&quot;</span><span class="o">,</span>  <span class="k">sans-serif</span><span class="p">;}</span></span>
+</pre></div>
+
+
+<p>由于时常会在博文中插入代码，这里对代码块的样式进行了一些设置，首先把代码块的字体改成<code>Source Code Pro</code>, 对代码块增加行号。</p>
+<div class="highlight"><pre><span class="code-line"><span class="c">/* For use with the code_line-number_word-wrap_switcher_jquery.js Pelican plugin */</span></span>
+<span class="code-line"><span class="nt">code</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">overflow</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span></span>
+<span class="code-line">    <span class="c">/* This uses `white-space: pre-wrap` to get elements within &lt;pre&gt; tags to wrap. Python, for code chunks within three backticks (```), doesn&#39;t wordwrap code lines by default, because they&#39;re within &lt;pre&gt; tags, which don&#39;t wrap by default. See https://github.com/github/markup/issues/168 , which is specifically about this parsing issue, even though that link&#39;s discussion is talking about GitHub. */</span></span>
+<span class="code-line">    <span class="k">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>       <span class="c">/* css-3 */</span></span>
+<span class="code-line">    <span class="k">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>  <span class="c">/* Mozilla, since 1999 */</span></span>
+<span class="code-line">    <span class="k">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>      <span class="c">/* Opera 4-6 */</span></span>
+<span class="code-line">    <span class="k">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>    <span class="c">/* Opera 7 */</span></span>
+<span class="code-line">    <span class="n">word</span><span class="o">-</span><span class="n">wrap</span><span class="o">:</span> <span class="n">break</span><span class="o">-</span><span class="n">word</span><span class="p">;</span>       <span class="c">/* Internet Explorer 5.5+ */</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c">/* Following http://bililite.com/blog/2012/08/05/line-numbering-in-pre-elements/, use CSS to add line numbers to all spans that have the class &#39;code-line&#39; */</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nc">.highlight</span> <span class="nt">pre</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">font-family</span><span class="o">:</span> <span class="s2">&quot;Source Code Pro&quot;</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">counter-reset</span><span class="o">:</span> <span class="n">linecounter</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">padding-left</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="nc">.highlight</span> <span class="nt">pre</span> <span class="nt">span</span><span class="nc">.code-line</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">counter-increment</span><span class="o">:</span> <span class="n">linecounter</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">padding-left</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">text-indent</span><span class="o">:</span> <span class="m">-1em</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"><span class="nc">.highlight</span> <span class="nt">pre</span> <span class="nt">span</span><span class="nc">.code-line</span><span class="nd">:before</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="k">content</span><span class="o">:</span> <span class="n">counter</span><span class="p">(</span><span class="n">linecounter</span><span class="p">);</span></span>
+<span class="code-line">    <span class="k">padding-right</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">color</span><span class="o">:</span> <span class="n">grey</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">text-align</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+</pre></div>
+
+
+<p>这里并没有使用pygments默认的行号设置，markdown中代码生成有两种方式：1.用tab键缩进2.利用三个反引号标记。如果利用反引号标记后在第一行写入<code>#!python</code>则生成的代码块是有行号的，否则没有。但这种方式并不适用于shell脚本，因为shell脚本通常第一行都是<code>#! /bin/bash</code>这在markdown中是无法正常显示的，并且pygments生成的行号会在复制时被选择上。这里行号显示采用了pelcian的一个插件：<a href="https://github.com/getpelican/pelican-plugins/tree/master/better_codeblock_line_numbering">better_codeblock_line_numbering</a>,具体设置参见项目的README。</p>
+<p>2.利用gitpages搭建博客</p>
+<p>利用github的网站托管功能可以很容易的搭建博客，具体教程官网也有。最开始时我在github上建立了一个名为username.github.io的仓库，而后想在output目录下建立本地的仓库把output目录下的文件上传到github上，但尝试了几次后git老是不能push到github，让我检查这个代码仓库是否存在，几次都没成功后也没找到原因，后来选了退而求其次的方法，在本地clone远端github的username.github.io的空的仓库，然后把output目录下内容复制到username.github.io下push到github。然后在output目录下就能够正常更新了（感觉还是很蛋疼，有空查找下原因）。</p>
+<p>3.启用Disqus评论</p>
+<p>在pelican-bootstrap3下已经已经写好Disqus的网页，不用手工添加代码，只要在pelicanconf.py中启用Disqus即可。这里折腾了一天，正确的方式是先到<a href="https://disqus.com/">Disqus</a>注册一个用户，然后注册一个网站的shortname，在https://yourshortname.disqus.com/admin/settings/general/进行一些常规设置，然后到https://yourshortname.disqus.com/admin/settings/advanced/下设置信任的域。最后到pelicanconf.py中设置</p>
+<div class="highlight"><pre><span class="code-line"><span class="c">#Disqus comments</span></span>
+<span class="code-line"><span class="n">SITEURL</span> <span class="o">=</span> <span class="s">u&quot;your blog url&quot;</span></span>
+<span class="code-line"><span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="s">u&quot;your shortname&quot;</span></span>
+<span class="code-line"><span class="c"># Uncomment following line if you want document-relative URLs when developing</span></span>
+<span class="code-line"><span class="n">RELATIVE_URLS</span> <span class="o">=</span> <span class="bp">False</span></span>
+</pre></div>
+
+
+<p>注意这里一定要设置SITEURL，并且设置成绝对地址，否则Disqus就会报</p>
+<blockquote>
+<p>“We were unable to load Disqus. If you are a moderator please see our troubleshooting guide.”</p>
+</blockquote>
+<p>的错误。不过这样也有一个缺点就是不能在本地正常预览了。</p>
+<h2>参考文献</h2>
+<p><a href="http://docs.getpelican.com/en/3.5.0/index.html">1. http://docs.getpelican.com/en/3.5.0/index.html</a></p>
+<p><a href="https://github.com/DandyDev/pelican-bootstrap3">2. https://github.com/DandyDev/pelican-bootstrap3</a></p>
+<p><a href="http://elfnor.com/pelican-and-markdown-styling-cheat-sheet.html">3. http://elfnor.com/pelican-and-markdown-styling-cheat-sheet.html</a></p>
+<p><a href="http://akenzc.com/post/how-to-build-a-blog-with-pelican">4. http://akenzc.com/post/how-to-build-a-blog-with-pelican</a></p>
+<p><a href="https://github.com/getpelican/pelican-plugins/tree/master/bet:ter_codeblock_line_numbering">5. https://github.com/getpelican/pelican-plugins/tree/master/better_codeblock_line_numbering</a></p>
+<p><a href="http://kevinyap.ca/2013/12/styling-code-blocks-using-pelican/">6. http://kevinyap.ca/2013/12/styling-code-blocks-using-pelican/</a></p>
+<p><a href="http://whilgeek.github.io/posts/2014/07/we-were-unable-to-load-disqus/">7. http://whilgeek.github.io/posts/2014/07/we-were-unable-to-load-disqus/</a></p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'bigpotato4future'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'pelcian_blog';
+                var disqus_url = 'http://bigpotato920.github.io/pelcian_blog.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="http://bigpotato920.github.io/java_serialization.html">
+                            fastjson序列化java对象
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://bigpotato920.github.io/spring_unittest.html">
+                            Spring中进行单元测试
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://bigpotato920.github.io/create_and_destroy_objects.html">
+                            Effective Java笔记 -- Creating and Destroying Objects
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://bigpotato920.github.io/tree_traversal.html">
+                            二叉树的遍历问题总结
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://bigpotato920.github.io/java_interface.html">
+                            thinking in java 中interface讲解笔记
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="http://bigpotato920.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="http://bigpotato920.github.io/category/algorithm.html">
+                            <i class="fa fa-folder-open fa-lg"></i> algorithm
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://bigpotato920.github.io/category/java.html">
+                            <i class="fa fa-folder-open fa-lg"></i> java
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="http://bigpotato920.github.io/category/tools.html">
+                            <i class="fa fa-folder-open fa-lg"></i> tools
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://oj.leetcode.com/" target="_blank">
+                Leetcode
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="https://www.archlinux.org/" target="_blank">
+                Arch Linux
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://wowubuntu.com/markdown/" target="_blank">
+                Markdown语法说明
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 bigpotato
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://bigpotato920.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://bigpotato920.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://bigpotato920.github.io/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'bigpotato4future'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+
+</body>
+</html>
