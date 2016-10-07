@@ -13,7 +13,7 @@
 <meta name="keywords" content="java, factory, singleton, objects, java, " />
 
 <meta property="og:title" content="Effective Java笔记 -- Creating and Destroying Objects "/>
-<meta property="og:url" content="http://localhost:8000/create_and_destroy_objects.html" />
+<meta property="og:url" content="http://bigpotato920.github.io/create_and_destroy_objects.html" />
 <meta property="og:description" content="effective java 笔记" />
 <meta property="og:site_name" content="bigpotato&#39;s blog" />
 <meta property="og:article:author" content="bigpotato" />
@@ -26,10 +26,10 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/custom.css" media="screen">
     </head>
     <body>
         <div id="content-sans-footer">
@@ -41,14 +41,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="http://localhost:8000/"><span class=site-name>bigpotato's blog</span></a>
+                    <a class="brand" href="http://bigpotato920.github.io/"><span class=site-name>bigpotato's blog</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="http://localhost:8000">Home</a></li>
-                            <li ><a href="http://localhost:8000/categories.html">Categories</a></li>
-                            <li ><a href="http://localhost:8000/tags.html">Tags</a></li>
-                            <li ><a href="http://localhost:8000/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://localhost:8000/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="http://bigpotato920.github.io">Home</a></li>
+                            <li ><a href="http://bigpotato920.github.io/categories.html">Categories</a></li>
+                            <li ><a href="http://bigpotato920.github.io/tags.html">Tags</a></li>
+                            <li ><a href="http://bigpotato920.github.io/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://bigpotato920.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://localhost:8000/create_and_destroy_objects.html"> Effective Java笔记 -- Creating and Destroying Objects  </a></h1>
+    <h1><a href="http://bigpotato920.github.io/create_and_destroy_objects.html"> Effective Java笔记 -- Creating and Destroying Objects  </a></h1>
     </header>
 </div>
 
@@ -80,20 +80,20 @@
 <li>静态工厂方法能够返回该类的子类型</li>
 <li>静态工厂方法可以避免冗长的类型列表，例如：</li>
 </ol>
-<div class="highlight"><pre><span class="code-line"><span></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> </span>
-<span class="code-line">        <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;();</span></span>
+<div class="highlight"><pre><span></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> 
+        <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;();</span>
 </pre></div>
 
 
 <p>参数类型越复杂，类型列表越长，通过静态工厂方法，可以通过编译器的类型推断来帮助编写简洁的代码.</p>
-<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="nf">newInstance</span><span class="o">()</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;();</span></span>
-<span class="code-line">    <span class="o">}</span></span>
+<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="nf">newInstance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;();</span>
+    <span class="o">}</span>
 </pre></div>
 
 
 <p>利用工厂方法可以把上面的实例化过长改成如下：</p>
-<div class="highlight"><pre><span class="code-line"><span></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">HashMap</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span></span>
+<div class="highlight"><pre><span></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">HashMap</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
 </pre></div>
 
 
@@ -104,150 +104,150 @@
 </ol>
 <h3>二、当有很多构造参数时可以考虑builder方法</h3>
 <p>静态工厂方法和构造函数有一个共同的缺点：当可选的构造参数很多时它们的扩展性并不是很好。这里作者举了一个营养成分表标签的例子，在这些标签有一些可选项，例如：食用量，脂肪、卡路里含量等。我们可以通过下面的类来表示营养成分表。</p>
-<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">NutritionFacts</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servingSize</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">calories</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">carbohydrate</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">(</span><span class="n">servingSize</span><span class="o">,</span> <span class="n">servings</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span></span>
-<span class="code-line">    <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">,</span></span>
-<span class="code-line">        <span class="kt">int</span> <span class="n">calories</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">(</span><span class="n">servingSize</span><span class="o">,</span> <span class="n">servings</span><span class="o">,</span> <span class="n">calories</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span></span>
-<span class="code-line">    <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">,</span></span>
-<span class="code-line">        <span class="kt">int</span> <span class="n">calories</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">(</span><span class="n">servingSize</span><span class="o">,</span> <span class="n">servings</span><span class="o">,</span> <span class="n">calories</span><span class="o">,</span> <span class="n">fat</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span></span>
-<span class="code-line">    <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">,</span></span>
-<span class="code-line">        <span class="kt">int</span> <span class="n">calories</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">(</span><span class="n">servingSize</span><span class="o">,</span> <span class="n">servings</span><span class="o">,</span> <span class="n">calories</span><span class="o">,</span> <span class="n">fat</span><span class="o">,</span> <span class="n">sodium</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span></span>
-<span class="code-line">    <span class="o">}</span></span>
-<span class="code-line">        <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">,</span></span>
-<span class="code-line"><span class="kt">int</span> <span class="n">calories</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">,</span> <span class="kt">int</span> <span class="n">carbohydrate</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">servingSize</span>  <span class="o">=</span> <span class="n">servingSize</span><span class="o">;</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">servings</span> <span class="o">=</span> <span class="n">servings</span><span class="o">;</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">calories</span> <span class="o">=</span> <span class="n">calories</span><span class="o">;</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">fat</span> <span class="o">=</span> <span class="n">fat</span><span class="o">;</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">sodium</span> <span class="o">=</span> <span class="n">sodium</span><span class="o">;</span></span>
-<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">carbohydrate</span> <span class="o">=</span> <span class="n">carbohydrate</span><span class="o">;</span></span>
-<span class="code-line">    <span class="o">}</span></span>
-<span class="code-line"><span class="o">}</span></span>
+<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">NutritionFacts</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servingSize</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">calories</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">carbohydrate</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">servingSize</span><span class="o">,</span> <span class="n">servings</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">,</span>
+        <span class="kt">int</span> <span class="n">calories</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">servingSize</span><span class="o">,</span> <span class="n">servings</span><span class="o">,</span> <span class="n">calories</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">,</span>
+        <span class="kt">int</span> <span class="n">calories</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">servingSize</span><span class="o">,</span> <span class="n">servings</span><span class="o">,</span> <span class="n">calories</span><span class="o">,</span> <span class="n">fat</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">,</span>
+        <span class="kt">int</span> <span class="n">calories</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">servingSize</span><span class="o">,</span> <span class="n">servings</span><span class="o">,</span> <span class="n">calories</span><span class="o">,</span> <span class="n">fat</span><span class="o">,</span> <span class="n">sodium</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+        <span class="kd">public</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">,</span>
+<span class="kt">int</span> <span class="n">calories</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">,</span> <span class="kt">int</span> <span class="n">carbohydrate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">servingSize</span>  <span class="o">=</span> <span class="n">servingSize</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">servings</span> <span class="o">=</span> <span class="n">servings</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">calories</span> <span class="o">=</span> <span class="n">calories</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">fat</span> <span class="o">=</span> <span class="n">fat</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sodium</span> <span class="o">=</span> <span class="n">sodium</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">carbohydrate</span> <span class="o">=</span> <span class="n">carbohydrate</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 
 
 <p>这里的构造函数采用了一种可伸缩的模式，即提供了一个包含所有必备参数的构造函数，其它构造函数调用这个构造函数。但是当构造函数的参数列表很长时很难准确记住各个参数的位置，不得不去翻看api文档。一种解决方法是采用JavaBeans的模式，即把属性设置为私有，然后提供公有的setter和getter，但这种方式会把类型的初始化分割到多个调用中去，破坏了类初始化的原子性。采用builder模式能够很好地解决上面的问题，通过给静态工厂方法或者构造函数传入适当的参数来初始化类的实例，然后通过得到的builder初始化其它属性。</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NutritionFacts</span> <span class="o">{</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servingSize</span><span class="o">;</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">;</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">calories</span><span class="o">;</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">;</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">;</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">carbohydrate</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Builder</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="c1">// Required parameters;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servingSize</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="c1">// Optional parameters</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kt">int</span> <span class="n">calories</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kt">int</span> <span class="n">fact</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kt">int</span> <span class="n">carbohydrate</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kd">private</span> <span class="kt">int</span> <span class="n">sodium</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="kd">public</span> <span class="nf">Builder</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="k">this</span><span class="o">.</span><span class="na">servingSize</span> <span class="o">=</span> <span class="n">servingSize</span><span class="o">;</span></span>
-<span class="code-line">            <span class="k">this</span><span class="o">.</span><span class="na">servings</span> <span class="o">=</span> <span class="n">servings</span><span class="o">;</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">calories</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="n">calories</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="k">this</span><span class="o">;</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">fat</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="n">fat</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="k">this</span><span class="o">;</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">carbohydrate</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="n">carbohydrate</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="k">this</span><span class="o">;</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">sodium</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="n">sodium</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="k">this</span><span class="o">;</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="kd">public</span> <span class="n">NutritionFacts</span> <span class="nf">build</span><span class="o">()</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="k">return</span> <span class="k">new</span> <span class="n">NutritionFacts</span><span class="o">(</span><span class="k">this</span><span class="o">);</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line">    <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kd">private</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="n">Builder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="n">servingSize</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">servingSize</span><span class="o">;</span></span>
-<span class="code-line">        <span class="n">servings</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">servings</span><span class="o">;</span></span>
-<span class="code-line">        <span class="n">calories</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">calories</span><span class="o">;</span></span>
-<span class="code-line">        <span class="n">fat</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">fat</span><span class="o">;</span></span>
-<span class="code-line">        <span class="n">sodium</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">sodium</span><span class="o">;</span></span>
-<span class="code-line">        <span class="n">carbohydrate</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">carbohydrate</span><span class="o">;</span></span>
-<span class="code-line">    <span class="o">}</span></span>
-<span class="code-line"><span class="o">}</span></span>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NutritionFacts</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servingSize</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">calories</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">fat</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">sodium</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">carbohydrate</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Builder</span> <span class="o">{</span>
+        <span class="c1">// Required parameters;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servingSize</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">;</span>
+
+        <span class="c1">// Optional parameters</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">calories</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">fact</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">carbohydrate</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">sodium</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="nf">Builder</span><span class="o">(</span><span class="kt">int</span> <span class="n">servingSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">servings</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">servingSize</span> <span class="o">=</span> <span class="n">servingSize</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">servings</span> <span class="o">=</span> <span class="n">servings</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">calories</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">calories</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">fat</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">fat</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">carbohydrate</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">carbohydrate</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">sodium</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sodium</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="n">NutritionFacts</span> <span class="nf">build</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">NutritionFacts</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nf">NutritionFacts</span><span class="o">(</span><span class="n">Builder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">servingSize</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">servingSize</span><span class="o">;</span>
+        <span class="n">servings</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">servings</span><span class="o">;</span>
+        <span class="n">calories</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">calories</span><span class="o">;</span>
+        <span class="n">fat</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">fat</span><span class="o">;</span>
+        <span class="n">sodium</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">sodium</span><span class="o">;</span>
+        <span class="n">carbohydrate</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">carbohydrate</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 
 
 <p>现在调用就可以变成下面这样：</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="n">NutritionFacts</span> <span class="n">cocaCola</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NutritionFacts</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="mi">240</span><span class="o">,</span></span>
-<span class="code-line">    <span class="mi">8</span><span class="o">).</span><span class="na">calories</span><span class="o">(</span><span class="mi">100</span><span class="o">).</span><span class="na">sodium</span><span class="o">(</span><span class="mi">35</span><span class="o">).</span><span class="na">carbohydrate</span><span class="o">(</span><span class="mi">27</span><span class="o">).</span><span class="na">build</span><span class="o">();</span></span>
+<div class="highlight"><pre><span></span><span class="n">NutritionFacts</span> <span class="n">cocaCola</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NutritionFacts</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="mi">240</span><span class="o">,</span>
+    <span class="mi">8</span><span class="o">).</span><span class="na">calories</span><span class="o">(</span><span class="mi">100</span><span class="o">).</span><span class="na">sodium</span><span class="o">(</span><span class="mi">35</span><span class="o">).</span><span class="na">carbohydrate</span><span class="o">(</span><span class="mi">27</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </pre></div>
 
 
 <p>我们可以把Builder抽象成一个接口，这样任何采用Builder pattern的类里德Builder类只要实现这个接口就可以了。</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Builder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span></span>
-<span class="code-line">    <span class="kd">public</span> <span class="n">T</span> <span class="nf">build</span><span class="o">();</span></span>
-<span class="code-line"><span class="o">}</span></span>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Builder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">T</span> <span class="nf">build</span><span class="o">();</span>
+<span class="o">}</span>
 </pre></div>
 
 
 <h3>三、通过私有构造函数或者枚举类型来实现单例</h3>
 <p>在JDK1.5之前有两种实现单例的方式，通过把类的构造函数设置为私有，通过一个公有的成员向外暴露类唯一的实例。一种是通过一个共有的实例变量：</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Elvis</span> <span class="o">{</span></span>
-<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Elvis</span> <span class="n">INSTANCE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Elvis</span><span class="o">();</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="nf">Elvis</span><span class="o">()</span> <span class="o">{...}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">leaveTheBuilding</span><span class="o">()</span> <span class="o">{...}</span></span>
-<span class="code-line"><span class="o">}</span></span>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Elvis</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Elvis</span> <span class="n">INSTANCE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Elvis</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="nf">Elvis</span><span class="o">()</span> <span class="o">{...}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">leaveTheBuilding</span><span class="o">()</span> <span class="o">{...}</span>
+<span class="o">}</span>
 </pre></div>
 
 
 <p>在这个例子中类的私有构造函数只会被调用一次，并且由于类中没有public或者protected修饰的构造函数，当类被继承时构造函数也只会被调用一次。
 另一宗方法就是提供一个共有的静态工厂方法：</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Elvis</span> <span class="o">{</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Elvis</span> <span class="n">INSTANCE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Elvis</span><span class="o">();</span></span>
-<span class="code-line">    <span class="kd">private</span> <span class="nf">Elvis</span><span class="o">()</span> <span class="o">{...}</span></span>
-<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Elvis</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">INSTANCE</span><span class="o">;}</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">leaveTheBuilding</span><span class="o">()</span> <span class="o">{...}</span></span>
-<span class="code-line"><span class="o">}</span></span>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Elvis</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Elvis</span> <span class="n">INSTANCE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Elvis</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="nf">Elvis</span><span class="o">()</span> <span class="o">{...}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Elvis</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span><span class="k">return</span> <span class="n">INSTANCE</span><span class="o">;}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">leaveTheBuilding</span><span class="o">()</span> <span class="o">{...}</span>
+<span class="o">}</span>
 </pre></div>
 
 
 <p>当这两种方法是饿汉式的，所以单例会在类加载后就被初始化。在JDK1.5中可以通过枚举类型来实现单例模式。</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Elvis</span> <span class="o">{</span></span>
-<span class="code-line">    <span class="n">INSTANCE</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">leaveTheBuilding</span><span class="o">()</span> <span class="o">{...}</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="o">}</span></span>
+<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Elvis</span> <span class="o">{</span>
+    <span class="n">INSTANCE</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">leaveTheBuilding</span><span class="o">()</span> <span class="o">{...}</span>
+
+<span class="o">}</span>
 </pre></div>
 
 
@@ -259,7 +259,7 @@
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                href="http://localhost:8000/create_and_destroy_objects.html#disqus_thread">
+                href="http://bigpotato920.github.io/create_and_destroy_objects.html#disqus_thread">
                 Comments
             </a>
         </div>
@@ -269,8 +269,8 @@
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'bigpotato4future';
-        var disqus_identifier = 'http://localhost:8000/create_and_destroy_objects.html';
-    var disqus_url = 'http://localhost:8000/create_and_destroy_objects.html';
+        var disqus_identifier = 'http://bigpotato920.github.io/create_and_destroy_objects.html';
+    var disqus_url = 'http://bigpotato920.github.io/create_and_destroy_objects.html';
 
     (function() {
          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -299,19 +299,19 @@
 <time datetime="2015-05-01T00:00:00+08:00"> 5 1, 2015</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://localhost:8000/categories.html#java-ref">java</a>
+            <a class="category-link" href="http://bigpotato920.github.io/categories.html#java-ref">java</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://localhost:8000/tags.html#factory-ref">factory
+                <li><a href="http://bigpotato920.github.io/tags.html#factory-ref">factory
                     <span>1</span>
 </a></li>
-                <li><a href="http://localhost:8000/tags.html#java-ref">java
+                <li><a href="http://bigpotato920.github.io/tags.html#java-ref">java
                     <span>6</span>
 </a></li>
-                <li><a href="http://localhost:8000/tags.html#objects-ref">objects
+                <li><a href="http://bigpotato920.github.io/tags.html#objects-ref">objects
                     <span>1</span>
 </a></li>
-                <li><a href="http://localhost:8000/tags.html#singleton-ref">singleton
+                <li><a href="http://bigpotato920.github.io/tags.html#singleton-ref">singleton
                     <span>1</span>
 </a></li>
             </ul>

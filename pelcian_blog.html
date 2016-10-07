@@ -13,7 +13,7 @@
 <meta name="keywords" content="静态网站生成器, pelican, github, python, tools, " />
 
 <meta property="og:title" content="用pelican和gitpages搭建博客 "/>
-<meta property="og:url" content="http://localhost:8000/pelcian_blog.html" />
+<meta property="og:url" content="http://bigpotato920.github.io/pelcian_blog.html" />
 <meta property="og:description" content="利用pelican生成静态网站，在github上进行托管" />
 <meta property="og:site_name" content="bigpotato&#39;s blog" />
 <meta property="og:article:author" content="bigpotato" />
@@ -26,10 +26,10 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/custom.css" media="screen">
     </head>
     <body>
         <div id="content-sans-footer">
@@ -41,14 +41,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="http://localhost:8000/"><span class=site-name>bigpotato's blog</span></a>
+                    <a class="brand" href="http://bigpotato920.github.io/"><span class=site-name>bigpotato's blog</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="http://localhost:8000">Home</a></li>
-                            <li ><a href="http://localhost:8000/categories.html">Categories</a></li>
-                            <li ><a href="http://localhost:8000/tags.html">Tags</a></li>
-                            <li ><a href="http://localhost:8000/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://localhost:8000/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="http://bigpotato920.github.io">Home</a></li>
+                            <li ><a href="http://bigpotato920.github.io/categories.html">Categories</a></li>
+                            <li ><a href="http://bigpotato920.github.io/tags.html">Tags</a></li>
+                            <li ><a href="http://bigpotato920.github.io/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://bigpotato920.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://localhost:8000/pelcian_blog.html"> 用pelican和gitpages搭建博客  </a></h1>
+    <h1><a href="http://bigpotato920.github.io/pelcian_blog.html"> 用pelican和gitpages搭建博客  </a></h1>
     </header>
 </div>
 
@@ -75,51 +75,51 @@
 <p>学习新东西的通用思路，打开google找到pelican的项目主页浏览它的官方教程。这里要说的是其实学习工具类的东西最好还是去官网，因为随着工具的升级，以前的方法可能就不再适用，而官网会对教程做持续性更新，是最权威的。由于pelcian的安装，博客的编写，博客本地的预览等部分[官网的教程][]写的已经很详细而且也比较简单，这里就不在赘述。</p>
 <p>1.博客样式设置</p>
 <p>这里说说博客主题的设置，当用pelcian生成网站后需要自己安装相应的主题来对网站界面进行美化，我选择<a href="https://github.com/DandyDev/pelican-bootstrap3">pelican-bootstrap3</a>作为我博客的主题。在github上下载主题后，在pelican生成的网站的pelicanconf.py文件中设置主题的路径THEME = 'path of pelican-bootstrap3',重新生成网站后来本地便可以预览到主题的效果。对网站的默认字体不是很喜欢，这里进行自定义，下载<a href="https://github.com/ForestWatchers/pelican-theme/blob/master/static/font/Lato-Regular.ttf">Lato</a>作为英文的默认字体保存到<code>pelican-bootstrap3/static/fonts</code>下，并在style.css设置启用该字体</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="k">@font-face</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="nt">font-family</span><span class="o">:</span> <span class="s1">&#39;Lato&#39;</span><span class="o">;</span></span>
-<span class="code-line">    <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;../fonts/Lato-Regular.ttf&#39;</span><span class="o">);</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span></span><span class="k">@font-face</span> <span class="p">{</span>
+    <span class="nt">font-family</span><span class="o">:</span> <span class="s1">&#39;Lato&#39;</span><span class="o">;</span>
+    <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;../fonts/Lato-Regular.ttf&#39;</span><span class="o">);</span>
+<span class="p">}</span>
 </pre></div>
 
 
 <p>对中文字体修改</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nc">.h1</span><span class="o">,</span><span class="nc">.h2</span><span class="o">,</span><span class="nc">.h3</span><span class="o">,</span><span class="nc">.h4</span><span class="o">,</span><span class="nc">.h5</span><span class="o">,</span><span class="nc">.h6</span> <span class="p">{</span><span class="nb">font-family</span><span class="o">:</span> <span class="s1">&#39;Microsoft YaHei&#39;</span><span class="o">,</span> <span class="err">微软雅黑</span><span class="o">,</span> <span class="s2">&quot;Lato&quot;</span><span class="o">,</span> <span class="nb">sans-serif</span><span class="p">;}</span></span>
-<span class="code-line"><span class="nt">p</span><span class="o">,</span> <span class="nt">a</span> <span class="o">,</span><span class="nt">body</span> <span class="p">{</span><span class="nb">font-family</span><span class="o">:</span> <span class="s1">&#39;Microsoft YaHei&#39;</span><span class="o">,</span> <span class="err">微软雅黑</span><span class="o">,</span> <span class="s2">&quot;Lato&quot;</span><span class="o">,</span>  <span class="nb">sans-serif</span><span class="p">;}</span></span>
+<div class="highlight"><pre><span></span><span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nc">.h1</span><span class="o">,</span><span class="nc">.h2</span><span class="o">,</span><span class="nc">.h3</span><span class="o">,</span><span class="nc">.h4</span><span class="o">,</span><span class="nc">.h5</span><span class="o">,</span><span class="nc">.h6</span> <span class="p">{</span><span class="nb">font-family</span><span class="o">:</span> <span class="s1">&#39;Microsoft YaHei&#39;</span><span class="o">,</span> <span class="err">微软雅黑</span><span class="o">,</span> <span class="s2">&quot;Lato&quot;</span><span class="o">,</span> <span class="nb">sans-serif</span><span class="p">;}</span>
+<span class="nt">p</span><span class="o">,</span> <span class="nt">a</span> <span class="o">,</span><span class="nt">body</span> <span class="p">{</span><span class="nb">font-family</span><span class="o">:</span> <span class="s1">&#39;Microsoft YaHei&#39;</span><span class="o">,</span> <span class="err">微软雅黑</span><span class="o">,</span> <span class="s2">&quot;Lato&quot;</span><span class="o">,</span>  <span class="nb">sans-serif</span><span class="p">;}</span>
 </pre></div>
 
 
 <p>由于时常会在博文中插入代码，这里对代码块的样式进行了一些设置，首先把代码块的字体改成<code>Source Code Pro</code>, 对代码块增加行号。</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="c">/* For use with the code_line-number_word-wrap_switcher_jquery.js Pelican plugin */</span></span>
-<span class="code-line"><span class="nt">code</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="nb">overflow</span><span class="o">:</span> <span class="nb">auto</span><span class="p">;</span></span>
-<span class="code-line">    <span class="c">/* This uses `white-space: pre-wrap` to get elements within &lt;pre&gt; tags to wrap. Python, for code chunks within three backticks (```), doesn&#39;t wordwrap code lines by default, because they&#39;re within &lt;pre&gt; tags, which don&#39;t wrap by default. See https://github.com/github/markup/issues/168 , which is specifically about this parsing issue, even though that link&#39;s discussion is talking about GitHub. */</span></span>
-<span class="code-line">    <span class="nb">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>       <span class="c">/* css-3 */</span></span>
-<span class="code-line">    <span class="nb">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>  <span class="c">/* Mozilla, since 1999 */</span></span>
-<span class="code-line">    <span class="nb">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>      <span class="c">/* Opera 4-6 */</span></span>
-<span class="code-line">    <span class="nb">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>    <span class="c">/* Opera 7 */</span></span>
-<span class="code-line">    <span class="n">word</span><span class="o">-</span><span class="n">wrap</span><span class="o">:</span> <span class="n">break</span><span class="o">-</span><span class="n">word</span><span class="p">;</span>       <span class="c">/* Internet Explorer 5.5+ */</span></span>
-<span class="code-line"><span class="p">}</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="c">/* Following http://bililite.com/blog/2012/08/05/line-numbering-in-pre-elements/, use CSS to add line numbers to all spans that have the class &#39;code-line&#39; */</span></span>
-<span class="code-line"></span>
-<span class="code-line"><span class="nc">.highlight</span> <span class="nt">pre</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="nb">font-family</span><span class="o">:</span> <span class="s2">&quot;Source Code Pro&quot;</span><span class="o">,</span> <span class="nb">monospace</span><span class="p">;</span></span>
-<span class="code-line">    <span class="nb">counter-reset</span><span class="o">:</span> <span class="n">linecounter</span><span class="p">;</span></span>
-<span class="code-line">    <span class="nb">padding-left</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
-<span class="code-line"><span class="nc">.highlight</span> <span class="nt">pre</span> <span class="nt">span</span><span class="nc">.code-line</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="nb">counter-increment</span><span class="o">:</span> <span class="n">linecounter</span><span class="p">;</span></span>
-<span class="code-line">    <span class="nb">padding-left</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span></span>
-<span class="code-line">    <span class="nb">text-indent</span><span class="o">:</span> <span class="m">-1em</span><span class="p">;</span></span>
-<span class="code-line">    <span class="nb">display</span><span class="o">:</span> <span class="nb">inline</span><span class="o">-</span><span class="nb">block</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
-<span class="code-line"><span class="nc">.highlight</span> <span class="nt">pre</span> <span class="nt">span</span><span class="nc">.code-line</span><span class="nd">:before</span> <span class="p">{</span></span>
-<span class="code-line">    <span class="nb">content</span><span class="o">:</span> <span class="n">counter</span><span class="p">(</span><span class="n">linecounter</span><span class="p">);</span></span>
-<span class="code-line">    <span class="nb">padding-right</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span></span>
-<span class="code-line">    <span class="nb">display</span><span class="o">:</span> <span class="nb">inline</span><span class="o">-</span><span class="nb">block</span><span class="p">;</span></span>
-<span class="code-line">    <span class="nb">color</span><span class="o">:</span> <span class="n">grey</span><span class="p">;</span></span>
-<span class="code-line">    <span class="nb">text-align</span><span class="o">:</span> <span class="nb">right</span><span class="p">;</span></span>
-<span class="code-line"><span class="p">}</span></span>
+<div class="highlight"><pre><span></span><span class="c">/* For use with the code_line-number_word-wrap_switcher_jquery.js Pelican plugin */</span>
+<span class="nt">code</span> <span class="p">{</span>
+    <span class="nb">overflow</span><span class="o">:</span> <span class="nb">auto</span><span class="p">;</span>
+    <span class="c">/* This uses `white-space: pre-wrap` to get elements within &lt;pre&gt; tags to wrap. Python, for code chunks within three backticks (```), doesn&#39;t wordwrap code lines by default, because they&#39;re within &lt;pre&gt; tags, which don&#39;t wrap by default. See https://github.com/github/markup/issues/168 , which is specifically about this parsing issue, even though that link&#39;s discussion is talking about GitHub. */</span>
+    <span class="nb">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>       <span class="c">/* css-3 */</span>
+    <span class="nb">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>  <span class="c">/* Mozilla, since 1999 */</span>
+    <span class="nb">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>      <span class="c">/* Opera 4-6 */</span>
+    <span class="nb">white-space</span><span class="o">:</span> <span class="o">-</span><span class="n">o</span><span class="o">-</span><span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>    <span class="c">/* Opera 7 */</span>
+    <span class="n">word</span><span class="o">-</span><span class="n">wrap</span><span class="o">:</span> <span class="n">break</span><span class="o">-</span><span class="n">word</span><span class="p">;</span>       <span class="c">/* Internet Explorer 5.5+ */</span>
+<span class="p">}</span>
+
+<span class="c">/* Following http://bililite.com/blog/2012/08/05/line-numbering-in-pre-elements/, use CSS to add line numbers to all spans that have the class &#39;code-line&#39; */</span>
+
+<span class="nc">.highlight</span> <span class="nt">pre</span> <span class="p">{</span>
+    <span class="nb">font-family</span><span class="o">:</span> <span class="s2">&quot;Source Code Pro&quot;</span><span class="o">,</span> <span class="nb">monospace</span><span class="p">;</span>
+    <span class="nb">counter-reset</span><span class="o">:</span> <span class="n">linecounter</span><span class="p">;</span>
+    <span class="nb">padding-left</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.highlight</span> <span class="nt">pre</span> <span class="nt">span</span><span class="nc">.code-line</span> <span class="p">{</span>
+    <span class="nb">counter-increment</span><span class="o">:</span> <span class="n">linecounter</span><span class="p">;</span>
+    <span class="nb">padding-left</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+    <span class="nb">text-indent</span><span class="o">:</span> <span class="m">-1em</span><span class="p">;</span>
+    <span class="nb">display</span><span class="o">:</span> <span class="nb">inline</span><span class="o">-</span><span class="nb">block</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.highlight</span> <span class="nt">pre</span> <span class="nt">span</span><span class="nc">.code-line</span><span class="nd">:before</span> <span class="p">{</span>
+    <span class="nb">content</span><span class="o">:</span> <span class="n">counter</span><span class="p">(</span><span class="n">linecounter</span><span class="p">);</span>
+    <span class="nb">padding-right</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+    <span class="nb">display</span><span class="o">:</span> <span class="nb">inline</span><span class="o">-</span><span class="nb">block</span><span class="p">;</span>
+    <span class="nb">color</span><span class="o">:</span> <span class="n">grey</span><span class="p">;</span>
+    <span class="nb">text-align</span><span class="o">:</span> <span class="nb">right</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -128,11 +128,11 @@
 <p>利用github的网站托管功能可以很容易的搭建博客，具体教程官网也有。最开始时我在github上建立了一个名为username.github.io的仓库，而后想在output目录下建立本地的仓库把output目录下的文件上传到github上，但尝试了几次后git老是不能push到github，让我检查这个代码仓库是否存在，几次都没成功后也没找到原因，后来选了退而求其次的方法，在本地clone远端github的username.github.io的空的仓库，然后把output目录下内容复制到username.github.io下push到github。然后在output目录下就能够正常更新了（感觉还是很蛋疼，有空查找下原因）。</p>
 <p>3.启用Disqus评论</p>
 <p>在pelican-bootstrap3下已经已经写好Disqus的网页，不用手工添加代码，只要在pelicanconf.py中启用Disqus即可。这里折腾了一天，正确的方式是先到<a href="https://disqus.com/">Disqus</a>注册一个用户，然后注册一个网站的shortname，在https://yourshortname.disqus.com/admin/settings/general/进行一些常规设置，然后到https://yourshortname.disqus.com/admin/settings/advanced/下设置信任的域。最后到pelicanconf.py中设置</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">#Disqus comments</span></span>
-<span class="code-line"><span class="n">SITEURL</span> <span class="o">=</span> <span class="s2">u&quot;your blog url&quot;</span></span>
-<span class="code-line"><span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="s2">u&quot;your shortname&quot;</span></span>
-<span class="code-line"><span class="c1"># Uncomment following line if you want document-relative URLs when developing</span></span>
-<span class="code-line"><span class="n">RELATIVE_URLS</span> <span class="o">=</span> <span class="bp">False</span></span>
+<div class="highlight"><pre><span></span><span class="c1">#Disqus comments</span>
+<span class="n">SITEURL</span> <span class="o">=</span> <span class="s2">u&quot;your blog url&quot;</span>
+<span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="s2">u&quot;your shortname&quot;</span>
+<span class="c1"># Uncomment following line if you want document-relative URLs when developing</span>
+<span class="n">RELATIVE_URLS</span> <span class="o">=</span> <span class="bp">False</span>
 </pre></div>
 
 
@@ -155,7 +155,7 @@
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                href="http://localhost:8000/pelcian_blog.html#disqus_thread">
+                href="http://bigpotato920.github.io/pelcian_blog.html#disqus_thread">
                 Comments
             </a>
         </div>
@@ -165,8 +165,8 @@
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'bigpotato4future';
-        var disqus_identifier = 'http://localhost:8000/pelcian_blog.html';
-    var disqus_url = 'http://localhost:8000/pelcian_blog.html';
+        var disqus_identifier = 'http://bigpotato920.github.io/pelcian_blog.html';
+    var disqus_url = 'http://bigpotato920.github.io/pelcian_blog.html';
 
     (function() {
          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -195,19 +195,19 @@
 <time datetime="2014-02-15T00:00:00+08:00"> 2 15, 2014</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://localhost:8000/categories.html#tools-ref">tools</a>
+            <a class="category-link" href="http://bigpotato920.github.io/categories.html#tools-ref">tools</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://localhost:8000/tags.html#github-ref">github
+                <li><a href="http://bigpotato920.github.io/tags.html#github-ref">github
                     <span>1</span>
 </a></li>
-                <li><a href="http://localhost:8000/tags.html#jing-tai-wang-zhan-sheng-cheng-qi-ref">静态网站生成器
+                <li><a href="http://bigpotato920.github.io/tags.html#jing-tai-wang-zhan-sheng-cheng-qi-ref">静态网站生成器
                     <span>1</span>
 </a></li>
-                <li><a href="http://localhost:8000/tags.html#pelican-ref">pelican
+                <li><a href="http://bigpotato920.github.io/tags.html#pelican-ref">pelican
                     <span>1</span>
 </a></li>
-                <li><a href="http://localhost:8000/tags.html#python-ref">python
+                <li><a href="http://bigpotato920.github.io/tags.html#python-ref">python
                     <span>1</span>
 </a></li>
             </ul>

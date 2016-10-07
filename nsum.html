@@ -13,7 +13,7 @@
 <meta name="keywords" content="leetcode, algorithm, java, algorithm, " />
 
 <meta property="og:title" content="N sum问题求解 "/>
-<meta property="og:url" content="http://localhost:8000/nsum.html" />
+<meta property="og:url" content="http://bigpotato920.github.io/nsum.html" />
 <meta property="og:description" content="对n个数的和为某个特定值问题的分析" />
 <meta property="og:site_name" content="bigpotato&#39;s blog" />
 <meta property="og:article:author" content="bigpotato" />
@@ -26,10 +26,10 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://bigpotato920.github.io/theme/css/custom.css" media="screen">
     </head>
     <body>
         <div id="content-sans-footer">
@@ -41,14 +41,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="http://localhost:8000/"><span class=site-name>bigpotato's blog</span></a>
+                    <a class="brand" href="http://bigpotato920.github.io/"><span class=site-name>bigpotato's blog</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="http://localhost:8000">Home</a></li>
-                            <li ><a href="http://localhost:8000/categories.html">Categories</a></li>
-                            <li ><a href="http://localhost:8000/tags.html">Tags</a></li>
-                            <li ><a href="http://localhost:8000/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://localhost:8000/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="http://bigpotato920.github.io">Home</a></li>
+                            <li ><a href="http://bigpotato920.github.io/categories.html">Categories</a></li>
+                            <li ><a href="http://bigpotato920.github.io/tags.html">Tags</a></li>
+                            <li ><a href="http://bigpotato920.github.io/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://bigpotato920.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://localhost:8000/nsum.html"> N sum问题求解  </a></h1>
+    <h1><a href="http://bigpotato920.github.io/nsum.html"> N sum问题求解  </a></h1>
     </header>
 </div>
 
@@ -80,55 +80,55 @@ Output: index1=1, index2=2</p>
 <p><a href="https://oj.leetcode.com/problems/two-sum/"><strong>Two sum LeetCode题目地址</strong></a></p>
 <p>此题最直接的思路便是利用两个索引index1, index2, index1从数组开始扫描，index2从index1下一个扫描，判断两个索引上的数字和是否为给定的数值，这种方法时间复杂度为$O(n^2)$,空间复杂度为$O(1)$,这么容易想到当然不是最优解，下面介绍两种复杂度比较低的方法。</p>
 <p>如果数组是有序数组，那么问题就被大大简化了，选择两个指针index1, index2分别指向数组第一个元素和最后一个元素，判断两个元素的和与给定数值val的大小关系，如果A[index1] + A[index] 等于 val那么找到两个下标返回即可；如果A[index1] + A[index2] &lt; val，说明两个数的和还不够大，把左指针右移；否则两个数和太大，把右指针左移，直到两个指针交错。代码如下：</p>
-<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">class</span> <span class="nc">TwoSum</span> <span class="o">{</span></span>
-<span class="code-line">    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">twoSum1</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span></span>
-<span class="code-line">    <span class="o">{</span></span>
-<span class="code-line">        <span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="kt">int</span> <span class="n">index1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kt">int</span> <span class="n">index2</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">numbers</span><span class="o">);</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="k">while</span> <span class="o">(</span><span class="n">index1</span> <span class="o">&lt;</span> <span class="n">index2</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="c1">//System.out.println(&quot;index1 = &quot; + index1 + &quot; index2 = &quot; + index2);</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">index1</span><span class="o">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="o">[</span><span class="n">index2</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                <span class="n">result</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">index1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line">                <span class="n">result</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">index2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line">                <span class="k">break</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">index1</span><span class="o">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="o">[</span><span class="n">index2</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                <span class="n">index1</span><span class="o">++;</span></span>
-<span class="code-line">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span></span>
-<span class="code-line">                <span class="n">index2</span><span class="o">--;</span></span>
-<span class="code-line">            <span class="o">}</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
-<span class="code-line">    <span class="o">}</span></span>
-<span class="code-line"><span class="o">}</span></span>
+<div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">TwoSum</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">twoSum1</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+
+        <span class="kt">int</span> <span class="n">index1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">index2</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">numbers</span><span class="o">);</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">index1</span> <span class="o">&lt;</span> <span class="n">index2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">//System.out.println(&quot;index1 = &quot; + index1 + &quot; index2 = &quot; + index2);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">index1</span><span class="o">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="o">[</span><span class="n">index2</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">result</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">index1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+                <span class="n">result</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">index2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">index1</span><span class="o">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="o">[</span><span class="n">index2</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">index1</span><span class="o">++;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">index2</span><span class="o">--;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 
 
 <p>但题目描述中并没有说数组有序，上述算法可以用来判断一个数组中是否有两个数的和等于某个特定值，首先进行排序而后查找，排序可以采用快排、归并排序、堆排序等，平均时间复杂度为$O(nlogn)$，查找的时间复杂度是$O(n)$，所以说算法整体复杂度是$O(nlogn)$。</p>
 <p>下面介绍一种利用空间换时间的方法，对数组A进行线性扫描，索引为index，目标值为target，只需要判断target - A[index]是否在数组中即可，对于判断某个数是否存在可以用哈希结构来降低时间复杂度，具体代码如下：</p>
-<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">twoSum2</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span></span>
-<span class="code-line">    <span class="o">{</span></span>
-<span class="code-line">        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span></span>
-<span class="code-line">        <span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="o">{-</span><span class="mi">1</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">};</span></span>
-<span class="code-line">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span></span>
-<span class="code-line">            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">i</span><span class="o">);</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">])</span></span>
-<span class="code-line">                    <span class="o">&amp;&amp;</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">!=</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                <span class="n">result</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line">                <span class="n">result</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line">                <span class="k">break</span><span class="o">;</span></span>
-<span class="code-line">            <span class="o">}</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
-<span class="code-line">    <span class="o">}</span></span>
+<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">twoSum2</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="o">{-</span><span class="mi">1</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">};</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">i</span><span class="o">);</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">])</span>
+                    <span class="o">&amp;&amp;</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">!=</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">result</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+                <span class="n">result</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
 </pre></div>
 
 
@@ -149,43 +149,43 @@ A solution set is:
 </blockquote>
 <p><a href="https://oj.leetcode.com/problems/3sum/"><strong>Three sum LeetCode题目地址</strong></a></p>
 <p>这道题要求返回的是三个数的升序组合，不要求下标所以可以利用上一题的两种方法，要求元组(a, b, c)使得a + b + c = 0，对任意一个元素A[i],只要判断数组中是否存在A[j] + A[k] = target - A[i]，这样便可以转换成 <strong>Two sum</strong>问题了。由于题目要求返回的集合无重复且元组顺序非递减，可以先对数组进行排序，而后转换成 <strong>Two sum</strong> 问题。代码如下：</p>
-<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">threeSum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;();</span></span>
-<span class="code-line">        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">num</span><span class="o">);</span></span>
-<span class="code-line">        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">;</span></span>
-<span class="code-line">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line">            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">            <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                <span class="k">if</span> <span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span></span>
-<span class="code-line">                    <span class="n">tmp</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span></span>
-<span class="code-line">                    <span class="n">tmp</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]);</span></span>
-<span class="code-line">                    <span class="n">tmp</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]);</span></span>
-<span class="code-line">                    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span></span>
-<span class="code-line">                    <span class="c1">//skip duplicates</span></span>
-<span class="code-line">                    <span class="k">do</span> <span class="o">{</span></span>
-<span class="code-line">                        <span class="n">j</span><span class="o">++;</span></span>
-<span class="code-line">                    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]);</span></span>
-<span class="code-line">                    <span class="c1">//skip duplicates</span></span>
-<span class="code-line">                    <span class="k">do</span> <span class="o">{</span></span>
-<span class="code-line">                        <span class="n">k</span><span class="o">--;</span></span>
-<span class="code-line">                    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">&gt;</span> <span class="n">j</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">==</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="o">]);</span></span>
-<span class="code-line"></span>
-<span class="code-line">                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                    <span class="n">j</span><span class="o">++;</span></span>
-<span class="code-line">                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span></span>
-<span class="code-line">                    <span class="n">k</span><span class="o">--;</span></span>
-<span class="code-line">                <span class="o">}</span></span>
-<span class="code-line">            <span class="o">}</span></span>
-<span class="code-line">            <span class="c1">//skip duplicates</span></span>
-<span class="code-line">            <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">])</span></span>
-<span class="code-line">                <span class="n">i</span><span class="o">++;</span></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
-<span class="code-line">    <span class="o">}</span></span>
+<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">threeSum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;();</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+
+            <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
+                    <span class="n">tmp</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+                    <span class="n">tmp</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]);</span>
+                    <span class="n">tmp</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]);</span>
+                    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+                    <span class="c1">//skip duplicates</span>
+                    <span class="k">do</span> <span class="o">{</span>
+                        <span class="n">j</span><span class="o">++;</span>
+                    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]);</span>
+                    <span class="c1">//skip duplicates</span>
+                    <span class="k">do</span> <span class="o">{</span>
+                        <span class="n">k</span><span class="o">--;</span>
+                    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">&gt;</span> <span class="n">j</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">==</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="o">]);</span>
+
+                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">j</span><span class="o">++;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                    <span class="n">k</span><span class="o">--;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="c1">//skip duplicates</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">])</span>
+                <span class="n">i</span><span class="o">++;</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
 </pre></div>
 
 
@@ -214,34 +214,34 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).</code></p>
 </blockquote>
 <p><a href="https://oj.leetcode.com/problems/3sum-closest/"><strong>Three sum closest LeetCode题目地址</strong></a></p>
 <p>这道题和 <strong>Three sum</strong> 思路类似，也是转换成 <strong>Two sum</strong>, 只要在查找过程中更新当前最接近target的三个数的组合即可，最后返回这三个数的和。代码如下：</p>
-<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">threeSumClosest</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">num</span><span class="o">);</span></span>
-<span class="code-line">        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">;</span></span>
-<span class="code-line">        <span class="kt">int</span> <span class="n">min_diff</span> <span class="o">=</span> <span class="n">num</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">-</span> <span class="n">target</span><span class="o">;</span></span>
-<span class="code-line">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span></span>
-<span class="code-line">            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line">            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">            <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                <span class="kt">int</span> <span class="n">cur_diff</span> <span class="o">=</span> <span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">-</span> <span class="n">target</span><span class="o">;</span></span>
-<span class="code-line">                <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">cur_diff</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">min_diff</span><span class="o">))</span> <span class="o">{</span></span>
-<span class="code-line">                    <span class="n">min_diff</span> <span class="o">=</span> <span class="n">cur_diff</span><span class="o">;</span></span>
-<span class="code-line">                <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">                <span class="k">if</span> <span class="o">(</span><span class="n">cur_diff</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                    <span class="k">return</span> <span class="n">target</span><span class="o">;</span></span>
-<span class="code-line"></span>
-<span class="code-line">                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">cur_diff</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span></span>
-<span class="code-line">                    <span class="n">j</span><span class="o">++;</span></span>
-<span class="code-line">                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span></span>
-<span class="code-line">                    <span class="n">k</span><span class="o">--;</span></span>
-<span class="code-line">                <span class="o">}</span></span>
-<span class="code-line">            <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="o">}</span></span>
-<span class="code-line"></span>
-<span class="code-line">        <span class="k">return</span> <span class="n">min_diff</span> <span class="o">+</span> <span class="n">target</span><span class="o">;</span></span>
-<span class="code-line">    <span class="o">}</span></span>
+<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">threeSumClosest</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">min_diff</span> <span class="o">=</span> <span class="n">num</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">-</span> <span class="n">target</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+
+            <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">cur_diff</span> <span class="o">=</span> <span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">-</span> <span class="n">target</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">cur_diff</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">min_diff</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="n">min_diff</span> <span class="o">=</span> <span class="n">cur_diff</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">cur_diff</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">return</span> <span class="n">target</span><span class="o">;</span>
+
+                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">cur_diff</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">j</span><span class="o">++;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                    <span class="n">k</span><span class="o">--;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">min_diff</span> <span class="o">+</span> <span class="n">target</span><span class="o">;</span>
+    <span class="o">}</span>
 </pre></div>
 
 
@@ -253,7 +253,7 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).</code></p>
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                href="http://localhost:8000/nsum.html#disqus_thread">
+                href="http://bigpotato920.github.io/nsum.html#disqus_thread">
                 Comments
             </a>
         </div>
@@ -263,8 +263,8 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).</code></p>
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'bigpotato4future';
-        var disqus_identifier = 'http://localhost:8000/nsum.html';
-    var disqus_url = 'http://localhost:8000/nsum.html';
+        var disqus_identifier = 'http://bigpotato920.github.io/nsum.html';
+    var disqus_url = 'http://bigpotato920.github.io/nsum.html';
 
     (function() {
          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -293,16 +293,16 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).</code></p>
 <time datetime="2014-02-16T00:00:00+08:00"> 2 16, 2014</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://localhost:8000/categories.html#algorithm-ref">algorithm</a>
+            <a class="category-link" href="http://bigpotato920.github.io/categories.html#algorithm-ref">algorithm</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://localhost:8000/tags.html#algorithm-ref">algorithm
+                <li><a href="http://bigpotato920.github.io/tags.html#algorithm-ref">algorithm
                     <span>2</span>
 </a></li>
-                <li><a href="http://localhost:8000/tags.html#java-ref">java
+                <li><a href="http://bigpotato920.github.io/tags.html#java-ref">java
                     <span>6</span>
 </a></li>
-                <li><a href="http://localhost:8000/tags.html#leetcode-ref">leetcode
+                <li><a href="http://bigpotato920.github.io/tags.html#leetcode-ref">leetcode
                     <span>2</span>
 </a></li>
             </ul>
