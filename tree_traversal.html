@@ -69,7 +69,7 @@
         <div class="span8 offset2 article-content">
 
             
-            <h2>二叉树的遍历问题总结</h2>
+            <h2 id="_1">二叉树的遍历问题总结</h2>
 <p>二叉树的遍历主要有：</p>
 <ul>
 <li>深度优先遍历</li>
@@ -82,7 +82,7 @@
 <li>后序遍历</li>
 </ul>
 <p>深度优先遍历分为递归和非递归的实现方式，广度优先遍历就是层次遍历，根据二叉树的遍历方式的组合可以重二叉树，下面对这些问题进行一个总结。</p>
-<h3>前序遍历</h3>
+<h3 id="_2">前序遍历</h3>
 <blockquote>
 <p>Given a binary tree, return the preorder traversal of its nodes' values.
 For example:
@@ -97,26 +97,26 @@ Given binary tree <code>{1,#,2,3}</code>,</p>
 </blockquote>
 <p><a href="https://oj.leetcode.com/problems/binary-tree-preorder-traversal/"><strong>Leetcode 前序遍历题目地址</strong></a></p>
 <p>前序遍历非递归可以用一个栈来实现，由于遍历过程中要先访问树的左子树，而后右子树，所以实现的时候先把根节点的右孩子入栈，而后是左孩子。</p>
-<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">preorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span>
-        <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
-        <span class="k">while</span> <span class="o">(!</span><span class="n">stack</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">TreeNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
-            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
-                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
-                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">preorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line">        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="o">(!</span><span class="n">stack</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span></span>
+<span class="code-line">            <span class="n">TreeNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span></span>
+<span class="code-line">            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">);</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span></span>
+<span class="code-line">        <span class="o">}</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 
-<h3>中序遍历</h3>
+<h3 id="_3">中序遍历</h3>
 <blockquote>
 <p>Given a binary tree, return the inorder traversal of its nodes' values.
 For example:
@@ -131,31 +131,31 @@ Given binary tree <code>{1,#,2,3}</code>,</p>
 </blockquote>
 <p><a href="https://oj.leetcode.com/problems/binary-tree-inorder-traversal/"><strong>Leetcode 中序遍历题目地址</strong></a></p>
 <p>二叉树中序遍历非递归也是利用栈来完成，由于二叉树中序遍历要先遍历左孩子而后根节点，最后是右孩子。所以算法先找到根节点的最左孩子，把一路下来的左孩子依次入栈，访问最左孩子，而后是访问根节点，然后把根节点右孩子当做当前节点重复上述过程直到节点都访问完。代码如下：</p>
-<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">inorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
-        <span class="n">TreeNode</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-
-        <span class="k">while</span> <span class="o">(</span><span class="n">cur_node</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">stack</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
-
-            <span class="k">while</span> <span class="o">(</span><span class="n">cur_node</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur_node</span><span class="o">);</span>
-                <span class="n">cur_node</span> <span class="o">=</span> <span class="n">cur_node</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
-            <span class="o">}</span>
-
-            <span class="n">cur_node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
-            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
-            <span class="n">cur_node</span> <span class="o">=</span> <span class="n">cur_node</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
-        <span class="o">}</span>
-
-        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">inorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="n">TreeNode</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">while</span> <span class="o">(</span><span class="n">cur_node</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">stack</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">            <span class="k">while</span> <span class="o">(</span><span class="n">cur_node</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur_node</span><span class="o">);</span></span>
+<span class="code-line">                <span class="n">cur_node</span> <span class="o">=</span> <span class="n">cur_node</span><span class="o">.</span><span class="na">left</span><span class="o">;</span></span>
+<span class="code-line">            <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">            <span class="n">cur_node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span></span>
+<span class="code-line">            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">val</span><span class="o">);</span></span>
+<span class="code-line">            <span class="n">cur_node</span> <span class="o">=</span> <span class="n">cur_node</span><span class="o">.</span><span class="na">right</span><span class="o">;</span></span>
+<span class="code-line">        <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 
-<h3>后序遍历</h3>
+<h3 id="_4">后序遍历</h3>
 <blockquote>
 <p>Given a binary tree, return the postorder traversal of its nodes' values.
 For example:
@@ -170,92 +170,92 @@ Given binary tree <code>{1,#,2,3}</code>,</p>
 </blockquote>
 <p><a href="https://oj.leetcode.com/problems/binary-tree-postorder-traversal/"><strong>Leetcode 后序遍历题目地址</strong></a></p>
 <p>二叉树后序遍历非递归可以通过两个栈来实现，具体代码如下：</p>
-<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">postorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span>
-        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-
-        <span class="n">s1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
-
-        <span class="k">while</span> <span class="o">(!</span><span class="n">s1</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">TreeNode</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
-                <span class="n">s1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
-                <span class="n">s1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
-
-            <span class="n">s2</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur_node</span><span class="o">);</span>
-        <span class="o">}</span>
-
-        <span class="k">while</span> <span class="o">(!</span><span class="n">s2</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s2</span><span class="o">.</span><span class="na">pop</span><span class="o">().</span><span class="na">val</span><span class="o">);</span>
-        <span class="o">}</span>
-
-        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">postorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">s1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">while</span> <span class="o">(!</span><span class="n">s1</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span></span>
+<span class="code-line">            <span class="n">TreeNode</span> <span class="n">cur_node</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">                <span class="n">s1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">                <span class="n">s1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur_node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">            <span class="n">s2</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur_node</span><span class="o">);</span></span>
+<span class="code-line">        <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">while</span> <span class="o">(!</span><span class="n">s2</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span></span>
+<span class="code-line">            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s2</span><span class="o">.</span><span class="na">pop</span><span class="o">().</span><span class="na">val</span><span class="o">);</span></span>
+<span class="code-line">        <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 
 <p>二叉树后序遍历非递归还可以通过一个栈来和一个访问前驱标志来实现，通过这个标志为来判断根节点的右子树是否访问完，如果访问完则访问根节点，否则继续遍历右子树，代码如下：</p>
-<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">postorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
-        <span class="n">TreeNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">s</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
-            <span class="c1">//找到最左孩子</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">s</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
-            <span class="c1">//如果右子树没有被访问，访问右子树</span>
-            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">peek</span><span class="o">().</span><span class="na">right</span> <span class="o">!=</span> <span class="n">pre</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">peek</span><span class="o">().</span><span class="na">right</span><span class="o">;</span>
-                <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-            <span class="c1">//访问根节点</span>
-            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-                <span class="n">pre</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
-                <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">pop</span><span class="o">().</span><span class="na">val</span><span class="o">);</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">postorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="n">TreeNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span></span>
+<span class="code-line">        <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">s</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span></span>
+<span class="code-line">            <span class="c1">//找到最左孩子</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">s</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span></span>
+<span class="code-line">                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span></span>
+<span class="code-line">            <span class="c1">//如果右子树没有被访问，访问右子树</span></span>
+<span class="code-line">            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">peek</span><span class="o">().</span><span class="na">right</span> <span class="o">!=</span> <span class="n">pre</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">root</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">peek</span><span class="o">().</span><span class="na">right</span><span class="o">;</span></span>
+<span class="code-line">                <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span></span>
+<span class="code-line">            <span class="c1">//访问根节点</span></span>
+<span class="code-line">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">pre</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span></span>
+<span class="code-line">                <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">pop</span><span class="o">().</span><span class="na">val</span><span class="o">);</span></span>
+<span class="code-line">            <span class="o">}</span></span>
+<span class="code-line">        <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 
 <p>二叉树后序遍历非递归还可以只通过一个栈来实现，代码如下：</p>
-<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">postorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-        <span class="k">do</span> <span class="o">{</span>
-            <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
-                    <span class="n">s</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
-                <span class="n">s</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
-            <span class="o">}</span>
-
-            <span class="n">root</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="n">s</span><span class="o">.</span><span class="na">peek</span><span class="o">())</span> <span class="o">{</span>
-                <span class="n">s</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
-                <span class="n">s</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
-            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-                <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-            <span class="o">}</span>
-
-        <span class="o">}</span> <span class="k">while</span> <span class="o">(!</span><span class="n">s</span><span class="o">.</span><span class="na">empty</span><span class="o">());</span>
-
-        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">postorderTraversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line">        <span class="k">do</span> <span class="o">{</span></span>
+<span class="code-line">            <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">                    <span class="n">s</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span></span>
+<span class="code-line">                <span class="n">s</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span></span>
+<span class="code-line">                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span></span>
+<span class="code-line">            <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">            <span class="n">root</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="n">s</span><span class="o">.</span><span class="na">peek</span><span class="o">())</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">s</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span></span>
+<span class="code-line">                <span class="n">s</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">);</span></span>
+<span class="code-line">                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span></span>
+<span class="code-line">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span></span>
+<span class="code-line">                <span class="n">root</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span></span>
+<span class="code-line">            <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="o">}</span> <span class="k">while</span> <span class="o">(!</span><span class="n">s</span><span class="o">.</span><span class="na">empty</span><span class="o">());</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 
-<h3>通过二叉树中序和后序遍历构建二叉树</h3>
+<h3 id="_5">通过二叉树中序和后序遍历构建二叉树</h3>
 <blockquote>
 <p>Given inorder and postorder traversal of a tree, construct the binary tree.</p>
 <p><strong>Note:</strong></p>
@@ -263,46 +263,46 @@ Given binary tree <code>{1,#,2,3}</code>,</p>
 </blockquote>
 <p><a href="https://oj.leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/"><strong>Leetcode题目地址</strong></a></p>
 <p>对与如下的二叉树,其中序遍历序列和后序遍历序列分别为：</p>
-<div class="highlight"><pre><span></span>        1
-       / \
-      2   3
-     / \ / \
-    4  5 6  7
+<div class="highlight"><pre><span class="code-line"><span></span>        1</span>
+<span class="code-line">       / \</span>
+<span class="code-line">      2   3</span>
+<span class="code-line">     / \ / \</span>
+<span class="code-line">    4  5 6  7</span>
 </pre></div>
 
 
 <p><strong>中序遍历:</strong>4 2 5 <code>1</code> 6 3 7</p>
 <p><strong>后序遍历:</strong>4 5 2 6 7 3 <code>1</code></p>
 <p>在后序遍历序列中最后一个元素即为二叉树根节点，在中序遍历序列中二叉树根节点把二叉树分成左右子树，左子树的根节点为根节点1的左孩子，右子树的根节点为根节点1的右孩子，这个过程具有良好的递归性。算法实现的代码如下：</p>
-<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">buildTree</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">postorder</span><span class="o">)</span> <span class="o">{</span>
-       <span class="k">return</span> <span class="n">buildTreeHelper</span><span class="o">(</span><span class="n">inorder</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">inorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span>
-               <span class="n">postorder</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">postorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="n">TreeNode</span> <span class="nf">buildTreeHelper</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">in_begin</span><span class="o">,</span> <span class="kt">int</span> <span class="n">in_end</span><span class="o">,</span>
-                                     <span class="kt">int</span><span class="o">[]</span> <span class="n">postorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">post_begin</span><span class="o">,</span> <span class="kt">int</span> <span class="n">post_end</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">in_begin</span> <span class="o">&gt;</span> <span class="n">in_end</span><span class="o">)</span>
-            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">postorder</span><span class="o">[</span><span class="n">post_end</span><span class="o">]);</span>
-        <span class="kt">int</span> <span class="n">in_index</span> <span class="o">=</span> <span class="n">in_begin</span><span class="o">;</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">in_begin</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">in_end</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">inorder</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">in_index</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
-                <span class="k">break</span><span class="o">;</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-        <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">buildTreeHelper</span><span class="o">(</span><span class="n">inorder</span><span class="o">,</span> <span class="n">in_begin</span><span class="o">,</span> <span class="n">in_index</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span>
-                <span class="n">postorder</span><span class="o">,</span> <span class="n">post_begin</span><span class="o">,</span> <span class="n">post_begin</span> <span class="o">+</span> <span class="n">in_index</span> <span class="o">-</span> <span class="n">in_begin</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
-
-        <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">buildTreeHelper</span><span class="o">(</span><span class="n">inorder</span><span class="o">,</span> <span class="n">in_index</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">in_end</span><span class="o">,</span>
-                <span class="n">postorder</span><span class="o">,</span> <span class="n">post_begin</span> <span class="o">+</span> <span class="n">in_index</span> <span class="o">-</span> <span class="n">in_begin</span><span class="o">,</span> <span class="n">post_end</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">buildTree</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">postorder</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">       <span class="k">return</span> <span class="n">buildTreeHelper</span><span class="o">(</span><span class="n">inorder</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">inorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span></span>
+<span class="code-line">               <span class="n">postorder</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">postorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">private</span> <span class="n">TreeNode</span> <span class="nf">buildTreeHelper</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">in_begin</span><span class="o">,</span> <span class="kt">int</span> <span class="n">in_end</span><span class="o">,</span></span>
+<span class="code-line">                                     <span class="kt">int</span><span class="o">[]</span> <span class="n">postorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">post_begin</span><span class="o">,</span> <span class="kt">int</span> <span class="n">post_end</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">if</span> <span class="o">(</span><span class="n">in_begin</span> <span class="o">&gt;</span> <span class="n">in_end</span><span class="o">)</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span></span>
+<span class="code-line">        <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">postorder</span><span class="o">[</span><span class="n">post_end</span><span class="o">]);</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">in_index</span> <span class="o">=</span> <span class="n">in_begin</span><span class="o">;</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">in_begin</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">in_end</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">inorder</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">in_index</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span></span>
+<span class="code-line">                <span class="k">break</span><span class="o">;</span></span>
+<span class="code-line">            <span class="o">}</span></span>
+<span class="code-line">        <span class="o">}</span></span>
+<span class="code-line">        <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">buildTreeHelper</span><span class="o">(</span><span class="n">inorder</span><span class="o">,</span> <span class="n">in_begin</span><span class="o">,</span> <span class="n">in_index</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span></span>
+<span class="code-line">                <span class="n">postorder</span><span class="o">,</span> <span class="n">post_begin</span><span class="o">,</span> <span class="n">post_begin</span> <span class="o">+</span> <span class="n">in_index</span> <span class="o">-</span> <span class="n">in_begin</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">buildTreeHelper</span><span class="o">(</span><span class="n">inorder</span><span class="o">,</span> <span class="n">in_index</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">in_end</span><span class="o">,</span></span>
+<span class="code-line">                <span class="n">postorder</span><span class="o">,</span> <span class="n">post_begin</span> <span class="o">+</span> <span class="n">in_index</span> <span class="o">-</span> <span class="n">in_begin</span><span class="o">,</span> <span class="n">post_end</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">root</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 
-<h3>通过二叉树前序遍历和中序遍历序列构建二叉树</h3>
+<h3 id="_6">通过二叉树前序遍历和中序遍历序列构建二叉树</h3>
 <blockquote>
 <p>Given preorder and inorder traversal of a tree, construct the binary tree.</p>
 <p><strong>Note:</strong></p>
@@ -310,50 +310,50 @@ Given binary tree <code>{1,#,2,3}</code>,</p>
 </blockquote>
 <p><a href="https://oj.leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"><strong>Leetcode 题目地址</strong></a></p>
 <p>对与如下的二叉树,其前序遍历序列和中序遍历序列分别为：</p>
-<div class="highlight"><pre><span></span>        1
-       / \
-      2   3
-     / \ / \
-    4  5 6  7
+<div class="highlight"><pre><span class="code-line"><span></span>        1</span>
+<span class="code-line">       / \</span>
+<span class="code-line">      2   3</span>
+<span class="code-line">     / \ / \</span>
+<span class="code-line">    4  5 6  7</span>
 </pre></div>
 
 
 <p><strong>前序遍历:</strong><code>1</code> 2 4 5 3 6 7</p>
 <p><strong>中序遍历:</strong>4 2 5 <code>1</code> 6 3 7</p>
 <p>这道题的思路和上一个题目类似，前序遍历序列第一个元素是整个二叉树的根节点元素，根据根节点元素可以把中序遍历序列分成两部分，分别用来构造二叉树的左右子树。具体代码如下：</p>
-<div class="highlight"><pre><span></span>    <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">buildTree</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">preorder</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">buildTreeHelper</span><span class="o">(</span><span class="n">preorder</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">preorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span>
-                <span class="n">inorder</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">inorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="n">TreeNode</span> <span class="nf">buildTreeHelper</span><span class="o">(</span>
-        <span class="kt">int</span><span class="o">[]</span> <span class="n">preorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pre_begin</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pre_end</span><span class="o">,</span>
-        <span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">in_begin</span><span class="o">,</span> <span class="kt">int</span> <span class="n">in_end</span><span class="o">)</span> <span class="o">{</span>
-
-        <span class="k">if</span> <span class="o">(</span><span class="n">pre_begin</span> <span class="o">&gt;</span> <span class="n">pre_end</span><span class="o">)</span>
-            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">preorder</span><span class="o">[</span><span class="n">pre_begin</span><span class="o">]);</span>
-        <span class="kt">int</span> <span class="n">in_index</span> <span class="o">=</span> <span class="n">in_begin</span><span class="o">;</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">in_begin</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">in_end</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">inorder</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">in_index</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
-                <span class="k">break</span><span class="o">;</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">buildTreeHelper</span><span class="o">(</span>
-                <span class="n">preorder</span><span class="o">,</span> <span class="n">pre_begin</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">pre_begin</span> <span class="o">+</span> <span class="n">in_index</span> <span class="o">-</span> <span class="n">in_begin</span><span class="o">,</span>
-                <span class="n">inorder</span><span class="o">,</span> <span class="n">in_begin</span><span class="o">,</span> <span class="n">in_index</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
-        <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">buildTreeHelper</span><span class="o">(</span>
-                <span class="n">preorder</span><span class="o">,</span> <span class="n">pre_begin</span> <span class="o">+</span> <span class="n">in_index</span> <span class="o">-</span> <span class="n">in_begin</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">pre_end</span><span class="o">,</span>
-                <span class="n">inorder</span><span class="o">,</span> <span class="n">in_index</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">in_end</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span>    <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">buildTree</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">preorder</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">buildTreeHelper</span><span class="o">(</span><span class="n">preorder</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">preorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span></span>
+<span class="code-line">                <span class="n">inorder</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">inorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">private</span> <span class="n">TreeNode</span> <span class="nf">buildTreeHelper</span><span class="o">(</span></span>
+<span class="code-line">        <span class="kt">int</span><span class="o">[]</span> <span class="n">preorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pre_begin</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pre_end</span><span class="o">,</span></span>
+<span class="code-line">        <span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">in_begin</span><span class="o">,</span> <span class="kt">int</span> <span class="n">in_end</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">if</span> <span class="o">(</span><span class="n">pre_begin</span> <span class="o">&gt;</span> <span class="n">pre_end</span><span class="o">)</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span></span>
+<span class="code-line">        <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">preorder</span><span class="o">[</span><span class="n">pre_begin</span><span class="o">]);</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">in_index</span> <span class="o">=</span> <span class="n">in_begin</span><span class="o">;</span></span>
+<span class="code-line">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">in_begin</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">in_end</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">inorder</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">in_index</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span></span>
+<span class="code-line">                <span class="k">break</span><span class="o">;</span></span>
+<span class="code-line">            <span class="o">}</span></span>
+<span class="code-line">        <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">buildTreeHelper</span><span class="o">(</span></span>
+<span class="code-line">                <span class="n">preorder</span><span class="o">,</span> <span class="n">pre_begin</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">pre_begin</span> <span class="o">+</span> <span class="n">in_index</span> <span class="o">-</span> <span class="n">in_begin</span><span class="o">,</span></span>
+<span class="code-line">                <span class="n">inorder</span><span class="o">,</span> <span class="n">in_begin</span><span class="o">,</span> <span class="n">in_index</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span></span>
+<span class="code-line">        <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">buildTreeHelper</span><span class="o">(</span></span>
+<span class="code-line">                <span class="n">preorder</span><span class="o">,</span> <span class="n">pre_begin</span> <span class="o">+</span> <span class="n">in_index</span> <span class="o">-</span> <span class="n">in_begin</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">pre_end</span><span class="o">,</span></span>
+<span class="code-line">                <span class="n">inorder</span><span class="o">,</span> <span class="n">in_index</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">in_end</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">root</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 
-<h3>二叉树层次遍历</h3>
+<h3 id="_7">二叉树层次遍历</h3>
 <blockquote>
 <p>Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).</p>
 <p>For example:</p>
@@ -372,42 +372,42 @@ Given binary tree <code>{1,#,2,3}</code>,</p>
 </blockquote>
 <p><a href="https://oj.leetcode.com/problems/binary-tree-level-order-traversal/"><strong>Leetocode 二叉树层序遍历题目地址</strong></a></p>
 <p>二叉树层序遍历可以采用队列来实现，但这道题要求求出每一层的序列，这里采用的方法是利用两个变量分别记录当前层的元素数目和下一层的元素数目。代码如下：</p>
-<div class="highlight"><pre><span></span><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">levelOrder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;();</span>
-        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span>
-
-        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-
-        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
-        <span class="kt">int</span> <span class="n">cur_level_count</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
-        <span class="kt">int</span> <span class="n">next_level_count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">tmp_level</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
-
-        <span class="k">while</span> <span class="o">(!</span><span class="n">queue</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
-            <span class="n">TreeNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">tmp_level</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
-                <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
-                <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
-
-                <span class="n">next_level_count</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">;</span> 
-            <span class="o">}</span>
-            <span class="n">cur_level_count</span><span class="o">--;</span>
-
-            <span class="k">if</span> <span class="o">(</span><span class="n">cur_level_count</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">if</span> <span class="o">(!</span><span class="n">tmp_level</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
-                    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;(</span><span class="n">tmp_level</span><span class="o">));</span>
-                    <span class="n">tmp_level</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-                    <span class="n">cur_level_count</span> <span class="o">=</span> <span class="n">next_level_count</span><span class="o">;</span>
-                    <span class="n">next_level_count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-                <span class="o">}</span>
-
-            <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">levelOrder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;();</span></span>
+<span class="code-line">        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span></span>
+<span class="code-line">            <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">);</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">cur_level_count</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span></span>
+<span class="code-line">        <span class="kt">int</span> <span class="n">next_level_count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span></span>
+<span class="code-line">        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">tmp_level</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">while</span> <span class="o">(!</span><span class="n">queue</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span></span>
+<span class="code-line">            <span class="n">TreeNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="n">tmp_level</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">);</span></span>
+<span class="code-line">                <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span></span>
+<span class="code-line">                <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">                <span class="n">next_level_count</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">;</span> </span>
+<span class="code-line">            <span class="o">}</span></span>
+<span class="code-line">            <span class="n">cur_level_count</span><span class="o">--;</span></span>
+<span class="code-line"></span>
+<span class="code-line">            <span class="k">if</span> <span class="o">(</span><span class="n">cur_level_count</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">                <span class="k">if</span> <span class="o">(!</span><span class="n">tmp_level</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span></span>
+<span class="code-line">                    <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;(</span><span class="n">tmp_level</span><span class="o">));</span></span>
+<span class="code-line">                    <span class="n">tmp_level</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span></span>
+<span class="code-line">                    <span class="n">cur_level_count</span> <span class="o">=</span> <span class="n">next_level_count</span><span class="o">;</span></span>
+<span class="code-line">                    <span class="n">next_level_count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span></span>
+<span class="code-line">                <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">            <span class="o">}</span></span>
+<span class="code-line">        <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 

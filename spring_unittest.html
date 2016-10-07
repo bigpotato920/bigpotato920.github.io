@@ -69,9 +69,9 @@
         <div class="span8 offset2 article-content">
 
             
-            <h2>Spring中进行单元测试和集成测试</h2>
+            <h2 id="spring">Spring中进行单元测试和集成测试</h2>
 <p>最近在学习利用spring mvc编写java web项目，以前在学习java时使用junit进行单元测试，但由于spring应用中要进行依赖注入，所以spring应用中不能直接利用junit进行单元测试。通过万能的google发现利用spring-test、junit4和Mockito可以方便的在spring项目中进行单元测试。下面对这两个框架分别进行介绍。</p>
-<h3>spring-test</h3>
+<h3 id="spring-test">spring-test</h3>
 <blockquote>
 <p>spring-test 是spring提供的一个单元测试框架，spring-test可以帮助我们自动加载spring的配置文件，依赖注入，自动对数据库操作进行回滚。</p>
 </blockquote>
@@ -80,127 +80,127 @@
  <img src="../../images/spring_test_project.png" width = "300" height = "400" alt="图片名称" align=center /></p>
 <p>在这个spring项目中，除了MVC层，还包含业务层和数据访问层，业务层有一个类AccountService，负责账号处理类的业务，它依赖于数据访问层AccountDao，这个类提供了对数据库的增删改查的方法。AccountService类中通过自动注入的方式来获得AccountDao的实例。各个类的实现如下：</p>
 <p>Account.java</p>
-<div class="highlight"><pre><span></span> <span class="kn">package</span> <span class="nn">com.springapp.domain</span><span class="o">;</span>
-
-<span class="cm">/**</span>
-<span class="cm"> * Created by hjy on 6/28/15.</span>
-<span class="cm"> */</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kt">long</span> <span class="n">id</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">password</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPassword</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">password</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPassword</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&quot;Account{&quot;</span> <span class="o">+</span>
-                <span class="s">&quot;id=&quot;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span>
-                <span class="s">&quot;, name=&#39;&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
-                <span class="s">&quot;, password=&#39;&quot;</span> <span class="o">+</span> <span class="n">password</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
-                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
-    <span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span> <span class="kn">package</span> <span class="nn">com.springapp.domain</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">long</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="n">String</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPassword</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPassword</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Override</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="s">&quot;Account{&quot;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;id=&quot;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;, name=&#39;&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;, password=&#39;&quot;</span> <span class="o">+</span> <span class="n">password</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="sc">&#39;}&#39;</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
 </pre></div>
 
 
 <p>AccountDao.java</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">com.springapp.dao</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.apache.ibatis.annotations.Select</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
-
-<span class="cm">/**</span>
-<span class="cm"> * Created by hjy on 6/28/15.</span>
-<span class="cm"> */</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AccountDao</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLENAME</span> <span class="o">=</span> <span class="s">&quot;account&quot;</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">VIEW</span> <span class="o">=</span> <span class="s">&quot;id, name, password&quot;</span><span class="o">;</span>
-
-    <span class="nd">@Select</span><span class="o">(</span><span class="s">&quot;select &quot;</span> <span class="o">+</span> <span class="n">VIEW</span> <span class="o">+</span> <span class="s">&quot; from &quot;</span> <span class="o">+</span> <span class="n">TABLENAME</span> <span class="o">+</span> <span class="s">&quot; where id = #{id}&quot;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">Account</span> <span class="nf">selectById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span>
-
-<span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kn">package</span> <span class="nn">com.springapp.dao</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.apache.ibatis.annotations.Select</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"><span class="nd">@Component</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AccountDao</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLENAME</span> <span class="o">=</span> <span class="s">&quot;account&quot;</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">VIEW</span> <span class="o">=</span> <span class="s">&quot;id, name, password&quot;</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Select</span><span class="o">(</span><span class="s">&quot;select &quot;</span> <span class="o">+</span> <span class="n">VIEW</span> <span class="o">+</span> <span class="s">&quot; from &quot;</span> <span class="o">+</span> <span class="n">TABLENAME</span> <span class="o">+</span> <span class="s">&quot; where id = #{id}&quot;</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">Account</span> <span class="nf">selectById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">}</span></span>
 </pre></div>
 
 
 <p>AccountService.java</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">com.springapp.service</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.springapp.dao.AccountDao</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
-
-<span class="cm">/**</span>
-<span class="cm"> * Created by hjy on 6/28/15.</span>
-<span class="cm"> */</span>
-<span class="nd">@Service</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AccountService</span> <span class="o">{</span>
-    <span class="nd">@Autowired</span>
-    <span class="n">AccountDao</span> <span class="n">accountDao</span><span class="o">;</span>
-
-    <span class="kd">public</span> <span class="n">Account</span> <span class="nf">getById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">accountDao</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kn">package</span> <span class="nn">com.springapp.service</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.dao.AccountDao</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"><span class="nd">@Service</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AccountService</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="nd">@Autowired</span></span>
+<span class="code-line">    <span class="n">AccountDao</span> <span class="n">accountDao</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">Account</span> <span class="nf">getById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">accountDao</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"><span class="o">}</span></span>
 </pre></div>
 
 
 <p>AccountServiceTest.java</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">com.springapp</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.springapp.service.AccountService</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.junit.runner.RunWith</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.test.context.ContextConfiguration</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">org.springframework.test.context.junit4.SpringJUnit4ClassRunner</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.</span><span class="na">assertNotNull</span><span class="o">;</span>
-
-<span class="cm">/**</span>
-<span class="cm"> * Created by hjy on 6/28/15.</span>
-<span class="cm"> */</span>
-
-<span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="nd">@ContextConfiguration</span><span class="o">(</span><span class="n">locations</span> <span class="o">=</span> <span class="o">{</span><span class="s">&quot;/spring_unittest.xml&quot;</span><span class="o">})</span>
-<span class="nd">@Transactional</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AccountServiceTest</span> <span class="o">{</span>
-    <span class="nd">@Autowired</span>
-    <span class="n">AccountService</span> <span class="n">accountService</span><span class="o">;</span>
-
-    <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelectById</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">accountService</span><span class="o">.</span><span class="na">getById</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
-        <span class="n">assertNotNull</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kn">package</span> <span class="nn">com.springapp</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.service.AccountService</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.junit.runner.RunWith</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.test.context.ContextConfiguration</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.test.context.junit4.SpringJUnit4ClassRunner</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.</span><span class="na">assertNotNull</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span></span>
+<span class="code-line"><span class="nd">@ContextConfiguration</span><span class="o">(</span><span class="n">locations</span> <span class="o">=</span> <span class="o">{</span><span class="s">&quot;/spring_unittest.xml&quot;</span><span class="o">})</span></span>
+<span class="code-line"><span class="nd">@Transactional</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AccountServiceTest</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="nd">@Autowired</span></span>
+<span class="code-line">    <span class="n">AccountService</span> <span class="n">accountService</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Test</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelectById</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">accountService</span><span class="o">.</span><span class="na">getById</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span></span>
+<span class="code-line">        <span class="n">assertNotNull</span><span class="o">(</span><span class="n">account</span><span class="o">);</span></span>
+<span class="code-line">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">account</span><span class="o">);</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"><span class="o">}</span></span>
 </pre></div>
 
 

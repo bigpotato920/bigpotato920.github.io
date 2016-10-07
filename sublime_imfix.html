@@ -69,7 +69,7 @@
         <div class="span8 offset2 article-content">
 
             
-            <h2>修复arch linux下sublime3不能输入中文的bug</h2>
+            <h2 id="arch-linuxsublime3bug">修复arch linux下sublime3不能输入中文的bug</h2>
 <p>介绍下本文使用的软件环境</p>
 <ul>
 <li>操作系统：<a href="https://www.archlinux.org/">arch linux</a></li>
@@ -86,85 +86,85 @@
     arch linux最被人们称道就是丰富的软件源和软件更新速度，想这种令人发指的bug在<a href="https://aur.archlinux.org/packages/sublime-text-dev-imfix/">aur上肯定有解决方案</a>，目前aur上已经有了能够正常输入中文，及中文汉化的sublime安装包了。</li>
 </ol>
 <p>下面详细介绍下第二种解决方案,把下面的代码保存到sublime3安装目录及/opt/sublime_text_3下面，命名为sublime_imfix.c。</p>
-<div class="highlight"><pre><span></span><span class="cm">/*</span>
-<span class="cm">sublime-imfix.c</span>
-<span class="cm">Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.</span>
-<span class="cm">By Cjacker Huang &lt;jianzhong.huang at i-soft.com.cn&gt;</span>
-
-<span class="cm">gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC</span>
-<span class="cm">LD_PRELOAD=./libsublime-imfix.so sublime_text</span>
-<span class="cm">*/</span>
-<span class="cp">#include</span> <span class="cpf">&lt;gtk/gtk.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;gdk/gdkx.h&gt;</span><span class="cp"></span>
-<span class="k">typedef</span> <span class="n">GdkSegment</span> <span class="n">GdkRegionBox</span><span class="p">;</span>
-
-<span class="k">struct</span> <span class="n">_GdkRegion</span>
-<span class="p">{</span>
-  <span class="kt">long</span> <span class="n">size</span><span class="p">;</span>
-  <span class="kt">long</span> <span class="n">numRects</span><span class="p">;</span>
-  <span class="n">GdkRegionBox</span> <span class="o">*</span><span class="n">rects</span><span class="p">;</span>
-  <span class="n">GdkRegionBox</span> <span class="n">extents</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="n">GtkIMContext</span> <span class="o">*</span><span class="n">local_context</span><span class="p">;</span>
-
-<span class="kt">void</span>
-<span class="nf">gdk_region_get_clipbox</span> <span class="p">(</span><span class="k">const</span> <span class="n">GdkRegion</span> <span class="o">*</span><span class="n">region</span><span class="p">,</span>
-            <span class="n">GdkRectangle</span>    <span class="o">*</span><span class="n">rectangle</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">region</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
-  <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">rectangle</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
-
-  <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x1</span><span class="p">;</span>
-  <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y1</span><span class="p">;</span>
-  <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x2</span> <span class="o">-</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x1</span><span class="p">;</span>
-  <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y2</span> <span class="o">-</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y1</span><span class="p">;</span>
-  <span class="n">GdkRectangle</span> <span class="n">rect</span><span class="p">;</span>
-  <span class="n">rect</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span>
-  <span class="n">rect</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">;</span>
-  <span class="n">rect</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="n">rect</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">height</span><span class="p">;</span> 
-  <span class="c1">//The caret width is 2; </span>
-  <span class="c1">//Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">GTK_IS_IM_CONTEXT</span><span class="p">(</span><span class="n">local_context</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">gtk_im_context_set_cursor_location</span><span class="p">(</span><span class="n">local_context</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">//this is needed, for example, if you input something in file dialog and return back the edit area</span>
-<span class="c1">//context will lost, so here we set it again.</span>
-
-<span class="k">static</span> <span class="n">GdkFilterReturn</span> <span class="nf">event_filter</span> <span class="p">(</span><span class="n">GdkXEvent</span> <span class="o">*</span><span class="n">xevent</span><span class="p">,</span> <span class="n">GdkEvent</span> <span class="o">*</span><span class="n">event</span><span class="p">,</span> <span class="n">gpointer</span> <span class="n">im_context</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">XEvent</span> <span class="o">*</span><span class="n">xev</span> <span class="o">=</span> <span class="p">(</span><span class="n">XEvent</span> <span class="o">*</span><span class="p">)</span><span class="n">xevent</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">xev</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">KeyRelease</span> <span class="o">&amp;&amp;</span> <span class="n">GTK_IS_IM_CONTEXT</span><span class="p">(</span><span class="n">im_context</span><span class="p">))</span> <span class="p">{</span>
-       <span class="n">GdkWindow</span> <span class="o">*</span> <span class="n">win</span> <span class="o">=</span> <span class="n">g_object_get_data</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">im_context</span><span class="p">),</span><span class="s">&quot;window&quot;</span><span class="p">);</span>
-       <span class="k">if</span><span class="p">(</span><span class="n">GDK_IS_WINDOW</span><span class="p">(</span><span class="n">win</span><span class="p">))</span>
-         <span class="n">gtk_im_context_set_client_window</span><span class="p">(</span><span class="n">im_context</span><span class="p">,</span> <span class="n">win</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">GDK_FILTER_CONTINUE</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">gtk_im_context_set_client_window</span> <span class="p">(</span><span class="n">GtkIMContext</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span>
-          <span class="n">GdkWindow</span>    <span class="o">*</span><span class="n">window</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">GtkIMContextClass</span> <span class="o">*</span><span class="n">klass</span><span class="p">;</span>
-  <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">GTK_IS_IM_CONTEXT</span> <span class="p">(</span><span class="n">context</span><span class="p">));</span>
-  <span class="n">klass</span> <span class="o">=</span> <span class="n">GTK_IM_CONTEXT_GET_CLASS</span> <span class="p">(</span><span class="n">context</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">klass</span><span class="o">-&gt;</span><span class="n">set_client_window</span><span class="p">)</span>
-    <span class="n">klass</span><span class="o">-&gt;</span><span class="n">set_client_window</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">window</span><span class="p">);</span>
-
-  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GDK_IS_WINDOW</span> <span class="p">(</span><span class="n">window</span><span class="p">))</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="n">g_object_set_data</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">context</span><span class="p">),</span><span class="s">&quot;window&quot;</span><span class="p">,</span><span class="n">window</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">gdk_window_get_width</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">gdk_window_get_height</span><span class="p">(</span><span class="n">window</span><span class="p">);</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">width</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">height</span> <span class="o">!=</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">gtk_im_context_focus_in</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
-    <span class="n">local_context</span> <span class="o">=</span> <span class="n">context</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">gdk_window_add_filter</span> <span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">event_filter</span><span class="p">,</span> <span class="n">context</span><span class="p">);</span> 
-<span class="p">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="cm">/*</span></span>
+<span class="code-line"><span class="cm">sublime-imfix.c</span></span>
+<span class="code-line"><span class="cm">Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.</span></span>
+<span class="code-line"><span class="cm">By Cjacker Huang &lt;jianzhong.huang at i-soft.com.cn&gt;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC</span></span>
+<span class="code-line"><span class="cm">LD_PRELOAD=./libsublime-imfix.so sublime_text</span></span>
+<span class="code-line"><span class="cm">*/</span></span>
+<span class="code-line"><span class="cp">#include</span> <span class="cpf">&lt;gtk/gtk.h&gt;</span><span class="cp"></span></span>
+<span class="code-line"><span class="cp">#include</span> <span class="cpf">&lt;gdk/gdkx.h&gt;</span><span class="cp"></span></span>
+<span class="code-line"><span class="k">typedef</span> <span class="n">GdkSegment</span> <span class="n">GdkRegionBox</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">struct</span> <span class="n">_GdkRegion</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">  <span class="kt">long</span> <span class="n">size</span><span class="p">;</span></span>
+<span class="code-line">  <span class="kt">long</span> <span class="n">numRects</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">GdkRegionBox</span> <span class="o">*</span><span class="n">rects</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">GdkRegionBox</span> <span class="n">extents</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">};</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="n">GtkIMContext</span> <span class="o">*</span><span class="n">local_context</span><span class="p">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">void</span></span>
+<span class="code-line"><span class="nf">gdk_region_get_clipbox</span> <span class="p">(</span><span class="k">const</span> <span class="n">GdkRegion</span> <span class="o">*</span><span class="n">region</span><span class="p">,</span></span>
+<span class="code-line">            <span class="n">GdkRectangle</span>    <span class="o">*</span><span class="n">rectangle</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">  <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">region</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span></span>
+<span class="code-line">  <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">rectangle</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">x</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x1</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">y</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y1</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x2</span> <span class="o">-</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">x1</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">height</span> <span class="o">=</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y2</span> <span class="o">-</span> <span class="n">region</span><span class="o">-&gt;</span><span class="n">extents</span><span class="p">.</span><span class="n">y1</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">GdkRectangle</span> <span class="n">rect</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">rect</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">rect</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">rect</span><span class="p">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">rect</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">height</span><span class="p">;</span> </span>
+<span class="code-line">  <span class="c1">//The caret width is 2; </span></span>
+<span class="code-line">  <span class="c1">//Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.</span></span>
+<span class="code-line">  <span class="k">if</span><span class="p">(</span><span class="n">rectangle</span><span class="o">-&gt;</span><span class="n">width</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">GTK_IS_IM_CONTEXT</span><span class="p">(</span><span class="n">local_context</span><span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="n">gtk_im_context_set_cursor_location</span><span class="p">(</span><span class="n">local_context</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">);</span></span>
+<span class="code-line">  <span class="p">}</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">//this is needed, for example, if you input something in file dialog and return back the edit area</span></span>
+<span class="code-line"><span class="c1">//context will lost, so here we set it again.</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">static</span> <span class="n">GdkFilterReturn</span> <span class="nf">event_filter</span> <span class="p">(</span><span class="n">GdkXEvent</span> <span class="o">*</span><span class="n">xevent</span><span class="p">,</span> <span class="n">GdkEvent</span> <span class="o">*</span><span class="n">event</span><span class="p">,</span> <span class="n">gpointer</span> <span class="n">im_context</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">    <span class="n">XEvent</span> <span class="o">*</span><span class="n">xev</span> <span class="o">=</span> <span class="p">(</span><span class="n">XEvent</span> <span class="o">*</span><span class="p">)</span><span class="n">xevent</span><span class="p">;</span></span>
+<span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">xev</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">KeyRelease</span> <span class="o">&amp;&amp;</span> <span class="n">GTK_IS_IM_CONTEXT</span><span class="p">(</span><span class="n">im_context</span><span class="p">))</span> <span class="p">{</span></span>
+<span class="code-line">       <span class="n">GdkWindow</span> <span class="o">*</span> <span class="n">win</span> <span class="o">=</span> <span class="n">g_object_get_data</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">im_context</span><span class="p">),</span><span class="s">&quot;window&quot;</span><span class="p">);</span></span>
+<span class="code-line">       <span class="k">if</span><span class="p">(</span><span class="n">GDK_IS_WINDOW</span><span class="p">(</span><span class="n">win</span><span class="p">))</span></span>
+<span class="code-line">         <span class="n">gtk_im_context_set_client_window</span><span class="p">(</span><span class="n">im_context</span><span class="p">,</span> <span class="n">win</span><span class="p">);</span></span>
+<span class="code-line">    <span class="p">}</span></span>
+<span class="code-line">    <span class="k">return</span> <span class="n">GDK_FILTER_CONTINUE</span><span class="p">;</span></span>
+<span class="code-line"><span class="p">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kt">void</span> <span class="nf">gtk_im_context_set_client_window</span> <span class="p">(</span><span class="n">GtkIMContext</span> <span class="o">*</span><span class="n">context</span><span class="p">,</span></span>
+<span class="code-line">          <span class="n">GdkWindow</span>    <span class="o">*</span><span class="n">window</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">{</span></span>
+<span class="code-line">  <span class="n">GtkIMContextClass</span> <span class="o">*</span><span class="n">klass</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">g_return_if_fail</span> <span class="p">(</span><span class="n">GTK_IS_IM_CONTEXT</span> <span class="p">(</span><span class="n">context</span><span class="p">));</span></span>
+<span class="code-line">  <span class="n">klass</span> <span class="o">=</span> <span class="n">GTK_IM_CONTEXT_GET_CLASS</span> <span class="p">(</span><span class="n">context</span><span class="p">);</span></span>
+<span class="code-line">  <span class="k">if</span> <span class="p">(</span><span class="n">klass</span><span class="o">-&gt;</span><span class="n">set_client_window</span><span class="p">)</span></span>
+<span class="code-line">    <span class="n">klass</span><span class="o">-&gt;</span><span class="n">set_client_window</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">window</span><span class="p">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GDK_IS_WINDOW</span> <span class="p">(</span><span class="n">window</span><span class="p">))</span></span>
+<span class="code-line">    <span class="k">return</span><span class="p">;</span></span>
+<span class="code-line">  <span class="n">g_object_set_data</span><span class="p">(</span><span class="n">G_OBJECT</span><span class="p">(</span><span class="n">context</span><span class="p">),</span><span class="s">&quot;window&quot;</span><span class="p">,</span><span class="n">window</span><span class="p">);</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">gdk_window_get_width</span><span class="p">(</span><span class="n">window</span><span class="p">);</span></span>
+<span class="code-line">  <span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">gdk_window_get_height</span><span class="p">(</span><span class="n">window</span><span class="p">);</span></span>
+<span class="code-line">  <span class="k">if</span><span class="p">(</span><span class="n">width</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">height</span> <span class="o">!=</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="code-line">    <span class="n">gtk_im_context_focus_in</span><span class="p">(</span><span class="n">context</span><span class="p">);</span></span>
+<span class="code-line">    <span class="n">local_context</span> <span class="o">=</span> <span class="n">context</span><span class="p">;</span></span>
+<span class="code-line">  <span class="p">}</span></span>
+<span class="code-line">  <span class="n">gdk_window_add_filter</span> <span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">event_filter</span><span class="p">,</span> <span class="n">context</span><span class="p">);</span> </span>
+<span class="code-line"><span class="p">}</span></span>
 </pre></div>
 
 
@@ -173,50 +173,50 @@
 <p>编译完成后可以测试下能够启动fcitx输入法 <code>LD_PRELOAD=./libsublime_imfix.so subl3</code></p>
 <p>测试成功后既可以修改命令行启动脚本和桌面启动脚本了
 对于命令行启动脚本，arch默认<code>/usr/bin/suml3</code> 是<code>/opt/sublime_text_3</code>的一个符号链接，首先删除该符号链接<code>sudo rm /usr/bin/subl3</code>,新建启动脚本命令为subl3，内容如下，其中SUB3_HOME为sublime可执行文件所在目录</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-
-<span class="nv">SUB3_HOME</span><span class="o">=</span>/opt/sublime_text_3
-<span class="nv">CMD</span><span class="o">=</span><span class="s2">&quot;LD_PRELOAD=./libsublime_imfix.so ./sublime_text&quot;</span>
-<span class="nv">FILENAME</span><span class="o">=</span><span class="nv">$1</span>
-<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span>
-<span class="k">then</span> 
-<span class="nv">CMD</span><span class="o">=</span><span class="si">${</span><span class="nv">CMD</span><span class="si">}</span><span class="s2">&quot; &quot;</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/<span class="nv">$FILENAME</span>
-<span class="k">fi</span>
-<span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$SUB3_HOME</span><span class="s2">&quot;</span>
-<span class="nb">eval</span> <span class="nv">$CMD</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="ch">#!/bin/bash</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nv">SUB3_HOME</span><span class="o">=</span>/opt/sublime_text_3</span>
+<span class="code-line"><span class="nv">CMD</span><span class="o">=</span><span class="s2">&quot;LD_PRELOAD=./libsublime_imfix.so ./sublime_text&quot;</span></span>
+<span class="code-line"><span class="nv">FILENAME</span><span class="o">=</span><span class="nv">$1</span></span>
+<span class="code-line"><span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">]</span></span>
+<span class="code-line"><span class="k">then</span> </span>
+<span class="code-line"><span class="nv">CMD</span><span class="o">=</span><span class="si">${</span><span class="nv">CMD</span><span class="si">}</span><span class="s2">&quot; &quot;</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/<span class="nv">$FILENAME</span></span>
+<span class="code-line"><span class="k">fi</span></span>
+<span class="code-line"><span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$SUB3_HOME</span><span class="s2">&quot;</span></span>
+<span class="code-line"><span class="nb">eval</span> <span class="nv">$CMD</span></span>
 </pre></div>
 
 
 <p>接着修改桌面启动脚本<code>/usr/share/applications/sublime_text.desktop</code></p>
-<div class="highlight"><pre><span></span><span class="k">[Desktop Entry]</span>
-<span class="na">Version</span><span class="o">=</span><span class="s">1.0</span>
-<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
-<span class="na">Name</span><span class="o">=</span><span class="s">Sublime Text 3 Dev</span>
-<span class="na">GenericName</span><span class="o">=</span><span class="s">Text Editor</span>
-<span class="na">Comment</span><span class="o">=</span><span class="s">Sophisticated text editor for code, markup and prose</span>
-<span class="na">Exec</span><span class="o">=</span><span class="s">subl3 %F</span>
-<span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
-<span class="na">MimeType</span><span class="o">=</span><span class="s">text/plain;</span>
-<span class="na">Icon</span><span class="o">=</span><span class="s">sublime-text</span>
-<span class="na">Categories</span><span class="o">=</span><span class="s">TextEditor;Development;</span>
-<span class="na">StartupNotify</span><span class="o">=</span><span class="s">true</span>
-<span class="na">Actions</span><span class="o">=</span><span class="s">Window;Document;</span>
-
-<span class="k">[Desktop Action Window]</span>
-<span class="na">Name</span><span class="o">=</span><span class="s">New Window</span>
-<span class="na">Exec</span><span class="o">=</span><span class="s">subl3 -n</span>
-<span class="na">OnlyShowIn</span><span class="o">=</span><span class="s">Unity;</span>
-
-<span class="k">[Desktop Action Document]</span>
-<span class="na">Name</span><span class="o">=</span><span class="s">New File</span>
-<span class="na">Exec</span><span class="o">=</span><span class="s">subl3 --command new_file</span>
-<span class="na">OnlyShowIn</span><span class="o">=</span><span class="s">Unity;</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">[Desktop Entry]</span></span>
+<span class="code-line"><span class="na">Version</span><span class="o">=</span><span class="s">1.0</span></span>
+<span class="code-line"><span class="na">Type</span><span class="o">=</span><span class="s">Application</span></span>
+<span class="code-line"><span class="na">Name</span><span class="o">=</span><span class="s">Sublime Text 3 Dev</span></span>
+<span class="code-line"><span class="na">GenericName</span><span class="o">=</span><span class="s">Text Editor</span></span>
+<span class="code-line"><span class="na">Comment</span><span class="o">=</span><span class="s">Sophisticated text editor for code, markup and prose</span></span>
+<span class="code-line"><span class="na">Exec</span><span class="o">=</span><span class="s">subl3 %F</span></span>
+<span class="code-line"><span class="na">Terminal</span><span class="o">=</span><span class="s">false</span></span>
+<span class="code-line"><span class="na">MimeType</span><span class="o">=</span><span class="s">text/plain;</span></span>
+<span class="code-line"><span class="na">Icon</span><span class="o">=</span><span class="s">sublime-text</span></span>
+<span class="code-line"><span class="na">Categories</span><span class="o">=</span><span class="s">TextEditor;Development;</span></span>
+<span class="code-line"><span class="na">StartupNotify</span><span class="o">=</span><span class="s">true</span></span>
+<span class="code-line"><span class="na">Actions</span><span class="o">=</span><span class="s">Window;Document;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">[Desktop Action Window]</span></span>
+<span class="code-line"><span class="na">Name</span><span class="o">=</span><span class="s">New Window</span></span>
+<span class="code-line"><span class="na">Exec</span><span class="o">=</span><span class="s">subl3 -n</span></span>
+<span class="code-line"><span class="na">OnlyShowIn</span><span class="o">=</span><span class="s">Unity;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="k">[Desktop Action Document]</span></span>
+<span class="code-line"><span class="na">Name</span><span class="o">=</span><span class="s">New File</span></span>
+<span class="code-line"><span class="na">Exec</span><span class="o">=</span><span class="s">subl3 --command new_file</span></span>
+<span class="code-line"><span class="na">OnlyShowIn</span><span class="o">=</span><span class="s">Unity;</span></span>
 </pre></div>
 
 
 <p>修改完后进行测试，结果如图：
 <img alt="修复sublime中文输入法测试结果" src="http://bigpotato920.github.io/images/sublime_imfix.png" /></p>
-<h3>参考文献</h3>
+<h3 id="_1">参考文献</h3>
 <p><a href="http://www.sublimetext.com/forum/viewtopic.php?f=3&amp;t=7006&amp;start=10#p41343">1. http://www.sublimetext.com/forum/viewtopic.php?f=3&amp;t=7006&amp;start=10#p41343</a></p>
 <p><a href="https://github.com/zivee/sublime3-fcitx-fix">2. https://github.com/zivee/sublime3-fcitx-fix</a></p>
             

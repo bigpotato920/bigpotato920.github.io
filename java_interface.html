@@ -69,48 +69,48 @@
         <div class="span8 offset2 article-content">
 
             
-            <h2>Thinking in java 中interface讲解笔记</h2>
+            <h2 id="thinking-in-java-interface">Thinking in java 中interface讲解笔记</h2>
 <blockquote>
 <p>Interfaces and abstract classes provide more structured way to separate interface from implementation.</p>
 </blockquote>
 <p>在Java中提供了两种抽象类和接口机制给用户来抽象实现。</p>
-<h3>抽象类</h3>
+<h3 id="_1">抽象类</h3>
 <p>抽象类要用 <strong>abstract</strong> 关键字修饰，类中可以存在抽象方法，这种方法只有声明，没有具体实现，如：</p>
-<div class="highlight"><pre><span></span><span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">f</span><span class="o">();</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">f</span><span class="o">();</span></span>
 </pre></div>
 
 
 <p>你可以创建某个类A来继承抽象类，如果想创建A类的对象，在A类中必须实现所有抽象类中的抽象方法，否则类A也是一个抽象类，不能被实例化。抽象类的好处是可以给用户显示地提供对类的抽象，迫使用户去实现抽象方法，并在编译期进行检查。</p>
-<h3>接口</h3>
+<h3 id="_2">接口</h3>
 <p>接口对抽象的限制更加严格，在接口中所有方法都是抽象方法，都只有一个声明，没有实现，实现接口的类必须实现接口中的所有方法。</p>
 <blockquote>
 <p>An Interface says,"All classes that implement this particular interfae will look like this."Thus any code that use a particular interface knows what methods might be called for that interface, and that's all.So the interface is used to establish a "protocol" between classes.</p>
 </blockquote>
 <p>接口和抽象类另一个不同点是类只能继承一个抽象类，但却可以实现多个接口，这点可以提供类似c++中多重继承的功能使得某个类可以转换成不同的父类型的类，但在语义上又更加合理。创建接口的时候用 <strong>interface</strong>关键字修饰，如果接口名字和所在文件同名，可以在inteface前加 <strong>public</strong> 修饰，如果不加public关键字修饰，那么接口是包访问权限，只能被同层包中其它类引用。接口中方法默认是用 <strong>public
 </strong> 修饰的，所以在实现接口中的方法时一定要把方法声明为 <strong>public</strong>, 否则方法的默认访问权限是包访问权限，在Java中不允许在实现的时候降低了方法的访问权限。除了方法还可以有域，它们默认是被 <strong>static</strong> 和 <strong>final</strong> 修饰。</p>
-<h3>通过继承扩展接口</h3>
+<h3 id="_3">通过继承扩展接口</h3>
 <p>在Java中接口通过继承的方式来扩展现有的接口，如代码所示：</p>
-<div class="highlight"><pre><span></span><span class="c1">// Extending an interface with inheritance.</span>
-<span class="kd">interface</span> <span class="nc">Monster</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">menace</span><span class="o">();</span>
-<span class="o">}</span>
-<span class="kd">interface</span> <span class="nc">DangerousMonster</span> <span class="kd">extends</span> <span class="n">Monster</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">destroy</span><span class="o">();</span>
-<span class="o">}</span>
-<span class="kd">interface</span> <span class="nc">Lethal</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">kill</span><span class="o">();</span>
-<span class="o">}</span>
-<span class="kd">interface</span> <span class="nc">Vampire</span> <span class="kd">extends</span> <span class="n">DangerousMonster</span><span class="o">,</span> <span class="n">Lethal</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="nf">drinkBlood</span><span class="o">();</span>
-<span class="o">}</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1">// Extending an interface with inheritance.</span></span>
+<span class="code-line"><span class="kd">interface</span> <span class="nc">Monster</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">menace</span><span class="o">();</span></span>
+<span class="code-line"><span class="o">}</span></span>
+<span class="code-line"><span class="kd">interface</span> <span class="nc">DangerousMonster</span> <span class="kd">extends</span> <span class="n">Monster</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">destroy</span><span class="o">();</span></span>
+<span class="code-line"><span class="o">}</span></span>
+<span class="code-line"><span class="kd">interface</span> <span class="nc">Lethal</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">kill</span><span class="o">();</span></span>
+<span class="code-line"><span class="o">}</span></span>
+<span class="code-line"><span class="kd">interface</span> <span class="nc">Vampire</span> <span class="kd">extends</span> <span class="n">DangerousMonster</span><span class="o">,</span> <span class="n">Lethal</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kt">void</span> <span class="nf">drinkBlood</span><span class="o">();</span></span>
+<span class="code-line"><span class="o">}</span></span>
 </pre></div>
 
 
 <p>并且这中接口继承允许继承 <strong>多个</strong> 现有接口。
 在扩展接口的时候，多个接口中可能存在同名函数，完全相同的函数不会出现问题，但是当函数签名相同但返回值不同时就会造成命名冲突。</p>
-<div class="highlight"><pre><span></span><span class="kd">interface</span> <span class="nc">I1</span> <span class="o">{</span><span class="kt">void</span> <span class="nf">f</span><span class="o">();}</span>
-<span class="kd">interface</span> <span class="nc">I2</span> <span class="o">{</span><span class="kt">int</span> <span class="nf">f</span><span class="o">();}</span>
-<span class="kd">interface</span> <span class="nc">I3</span> <span class="kd">extends</span> <span class="n">I1</span><span class="o">,</span> <span class="n">I2</span> <span class="o">{}</span>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">interface</span> <span class="nc">I1</span> <span class="o">{</span><span class="kt">void</span> <span class="nf">f</span><span class="o">();}</span></span>
+<span class="code-line"><span class="kd">interface</span> <span class="nc">I2</span> <span class="o">{</span><span class="kt">int</span> <span class="nf">f</span><span class="o">();}</span></span>
+<span class="code-line"><span class="kd">interface</span> <span class="nc">I3</span> <span class="kd">extends</span> <span class="n">I1</span><span class="o">,</span> <span class="n">I2</span> <span class="o">{}</span></span>
 </pre></div>
 
 
@@ -118,14 +118,14 @@
 <blockquote>
 <p>Two methods have the same signature if they have the same name and argument types.</p>
 </blockquote>
-<h3>类转换成接口</h3>
+<h3 id="_4">类转换成接口</h3>
 <blockquote>
 <p>A common use for interfaces is the aftermentioned Strategy design pattern. You write a method that performs certain operations, and that method takes an interface that you also specify. You’re basically saying, "You can use my method with any object you like, as long as your object conforms to my interface." This makes your method more flexible, general and reusable.</p>
 </blockquote>
 <p>即我们可以向任何实现了特定接口的类传递消息，或者说我们可以把任意实现了特定接口的对象传递给某个方法。</p>
-<h3>接口变量初始化</h3>
+<h3 id="_5">接口变量初始化</h3>
 <p>接口中的变量默认为static final修饰，必须进行显示初始化。</p>
-<h3>类和接的选择</h3>
+<h3 id="_6">类和接的选择</h3>
 <blockquote>
 <p>An appropriate guideline is to prefer classes to interfaces. Start with classes, and if it becomes clear that interfaces are necessary, then refactor. Interfaces are a great tool, but they can easily be overused.</p>
 </blockquote>
