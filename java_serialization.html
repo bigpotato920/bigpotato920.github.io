@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="bigpotato" />
+        <meta name="copyright" content="bigpotato" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="java, json, java, " />
+
+<meta property="og:title" content="fastjson序列化java对象 "/>
+<meta property="og:url" content="http://localhost:8000/java_serialization.html" />
+<meta property="og:description" content="利用fastjson对java对象进行序列化" />
+<meta property="og:site_name" content="bigpotato&#39;s blog" />
+<meta property="og:article:author" content="bigpotato" />
+<meta property="og:article:published_time" content="2016-02-16T00:00:00+08:00" />
+<meta property="" content="2016-02-16T00:00:00+08:00" />
+<meta name="twitter:title" content="fastjson序列化java对象 ">
+<meta name="twitter:description" content="利用fastjson对java对象进行序列化">
+
+        <title>fastjson序列化java对象  · bigpotato&#39;s blog
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/custom.css" media="screen">
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://localhost:8000/"><span class=site-name>bigpotato's blog</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="http://localhost:8000">Home</a></li>
+                            <li ><a href="http://localhost:8000/categories.html">Categories</a></li>
+                            <li ><a href="http://localhost:8000/tags.html">Tags</a></li>
+                            <li ><a href="http://localhost:8000/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://localhost:8000/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="http://localhost:8000/java_serialization.html"> fastjson序列化java对象  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            
+            <h3>fastjson和mybatis中驼峰命名和下划线分隔命名的转换</h3>
+<blockquote>
+<p>最近在看外卖搜狗搜索项目的代码时发现，在给搜狗方返回的数据采用的是json格式，其中key的命名采用的是下划线分隔，为了方便Java类中属性命名就直接采用了下划线分隔的方式，对这种命名方式很不习惯，所以就搜索了相关资料找到解决办法。由此又想到了平时数据库中列命名多采用下划线分隔，在用mybatis进行查询时对返回结果需要人工转换成驼峰命名，才能给model正常赋值，查找资料后也有相应的解决方法。</p>
+</blockquote>
+<ul>
+<li>fastjson序列化中驼峰命名和下划线命名的转换</li>
+</ul>
+<p>Java中把对象序列化成json有相应的类库可以使用，<a href="http://wiki.fasterxml.com/JacksonInFiveMinutes">Jackson</a>，<a href="https://github.com/alibaba/fastjson">fastjson</a>等，在序列化的时候需要对格式进行各种各样的定制，下面总结了利用fastjson序列化对象时格式定制的方法。Java语言规范的命名是采用驼峰式命名，在json中有些人习惯下划线分隔的命名方式，所以在把Java对象序列化成json格式的时候就存在命名方式转换的问题，查找fastjson资料时发现fastjson提供一个<code>JSONField</code>的注解来完成序列化时各种格式的定制。</p>
+<ol>
+<li>指定字段名</li>
+<li>配置序列化和反序列化的顺序</li>
+<li>格式化日期</li>
+<li>某个字段是否序列化、反序列化</li>
+</ol>
+<p>下面通过具体代码介绍<code>JSonField</code>注解的使用方法</p>
+<p>指定字段名</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Event</span> <span class="o">{</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@JSONField</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;start_time&quot;</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">startTime</span><span class="o">;</span></span>
+<span class="code-line">    <span class="nd">@JSONField</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;end_time&quot;</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">endTime</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="nf">Event</span><span class="o">(</span><span class="kt">int</span> <span class="n">startTime</span><span class="o">,</span> <span class="kt">int</span> <span class="n">endTime</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">startTime</span> <span class="o">=</span> <span class="n">startTime</span><span class="o">;</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">endTime</span> <span class="o">=</span> <span class="n">endTime</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getStartTime</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">startTime</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStartTime</span><span class="o">(</span><span class="kt">int</span> <span class="n">startTime</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">startTime</span> <span class="o">=</span> <span class="n">startTime</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getEndTime</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">endTime</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setEndTime</span><span class="o">(</span><span class="kt">int</span> <span class="n">endTime</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">endTime</span> <span class="o">=</span> <span class="n">endTime</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"><span class="o">}</span></span>
+</pre></div>
+
+
+<p>在<code>Event</code>类中对连个属性<code>startTime</code>,<code>endTime</code>指定了<code>JSONField</code>注解，在序列化时相应的key就变成了<code>start_time</code>和<code>end_time</code>，进而完成了两个命名方式的转换。再也不会在Java类中生成蛋疼的<code>getStart_time()</code>这种命名方式的方法了。</p>
+<p>配置序列化和反序列化的顺序
+在用fastjson对Java对象进行序列化的时候，生成的json的key是按照字母顺序的，可以通过ordinal来指定序列化的顺序</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">VO</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="nd">@JSONField</span><span class="o">(</span><span class="n">ordinal</span> <span class="o">=</span> <span class="mi">3</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">f0</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@JSONField</span><span class="o">(</span><span class="n">ordinal</span> <span class="o">=</span> <span class="mi">2</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">f1</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@JSONField</span><span class="o">(</span><span class="n">ordinal</span> <span class="o">=</span> <span class="mi">1</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">f2</span><span class="o">;</span></span>
+<span class="code-line"><span class="o">}</span></span>
+</pre></div>
+
+
+<p>格式化日期</p>
+<div class="highlight"><pre><span class="code-line"><span></span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span></span>
+<span class="code-line">      <span class="c1">// 配置date序列化和反序列使用yyyyMMdd日期格式</span></span>
+<span class="code-line">      <span class="nd">@JSONField</span><span class="o">(</span><span class="n">format</span><span class="o">=</span><span class="s">&quot;yyyyMMdd&quot;</span><span class="o">)</span></span>
+<span class="code-line">      <span class="kd">public</span> <span class="n">Date</span> <span class="n">date</span><span class="o">;</span></span>
+<span class="code-line"> <span class="o">}</span></span>
+</pre></div>
+
+
+<p>某个字段是否序列化、反序列化</p>
+<div class="highlight"><pre><span class="code-line"><span></span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span></span>
+<span class="code-line">      <span class="nd">@JSONField</span><span class="o">(</span><span class="n">serialize</span><span class="o">=</span><span class="kc">false</span><span class="o">)</span></span>
+<span class="code-line">      <span class="kd">public</span> <span class="n">Date</span> <span class="n">date</span><span class="o">;</span></span>
+<span class="code-line"> <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line"> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span></span>
+<span class="code-line">      <span class="nd">@JSONField</span><span class="o">(</span><span class="n">deserialize</span><span class="o">=</span><span class="kc">false</span><span class="o">)</span></span>
+<span class="code-line">      <span class="kd">public</span> <span class="n">Date</span> <span class="n">date</span><span class="o">;</span></span>
+<span class="code-line"> <span class="o">}</span></span>
+</pre></div>
+
+
+<ul>
+<li>mybatis中驼峰命名和下划线命名的转换</li>
+</ul>
+<p>在数据库创建的时候习惯把列用下划线分隔的方式来命名，而Java中model类的命名是采用驼峰式，在进行select操作时不能直接给model类赋值。</p>
+<p>Java类</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kn">package</span> <span class="nn">com.springapp.domain</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">long</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="n">String</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">createTime</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="nf">Account</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">createTime</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPassword</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPassword</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCreateTime</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">createTime</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCreateTime</span><span class="o">(</span><span class="kt">int</span> <span class="n">createTime</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">createTime</span> <span class="o">=</span> <span class="n">createTime</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Override</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="s">&quot;Account{&quot;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;id=&quot;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;, name=&#39;&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;, password=&#39;&quot;</span> <span class="o">+</span> <span class="n">password</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;, createTime=&quot;</span> <span class="o">+</span> <span class="n">createTime</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="sc">&#39;}&#39;</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"><span class="o">}</span></span>
+</pre></div>
+
+
+<p>数据库建表语句</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">account</span><span class="o">`</span> <span class="p">(</span></span>
+<span class="code-line">  <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">bigint</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span></span>
+<span class="code-line">  <span class="o">`</span><span class="n">name</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span></span>
+<span class="code-line">  <span class="o">`</span><span class="n">password</span><span class="o">`</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span></span>
+<span class="code-line">  <span class="o">`</span><span class="n">create_time</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span></span>
+<span class="code-line">  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span></span>
+<span class="code-line"><span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span></span>
+</pre></div>
+
+
+<p>AccountDao</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="nd">@Component</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AccountDao</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLENAME</span> <span class="o">=</span> <span class="s">&quot;account&quot;</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">VIEW</span> <span class="o">=</span> <span class="s">&quot;id, name, password, create_time As createTime&quot;</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Select</span><span class="o">(</span><span class="s">&quot;select &quot;</span> <span class="o">+</span> <span class="n">VIEW</span> <span class="o">+</span> <span class="s">&quot; from &quot;</span> <span class="o">+</span> <span class="n">TABLENAME</span> <span class="o">+</span> <span class="s">&quot; where id = #{id}&quot;</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">Account</span> <span class="nf">selectById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Insert</span><span class="o">(</span><span class="s">&quot;insert into &quot;</span> <span class="o">+</span> <span class="n">TABLENAME</span> <span class="o">+</span> <span class="s">&quot;(name, password) values(#{name}, #{password}, #{createTime})&quot;</span><span class="o">)</span></span>
+<span class="code-line">    <span class="nd">@Options</span><span class="o">(</span><span class="n">useGeneratedKeys</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">keyColumn</span> <span class="o">=</span> <span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="n">keyProperty</span> <span class="o">=</span> <span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="n">useCache</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">flushCache</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">createAccount</span><span class="o">(</span><span class="n">Account</span> <span class="n">account</span><span class="o">);</span></span>
+<span class="code-line"><span class="o">}</span></span>
+</pre></div>
+
+
+<p>注意到Account类中的<code>createTime</code>和sql中的<code>create_time</code>命名方式不一样，在做select操作时为了返回正确的Account对象，一种做法是做一个名字的转换，像AccountDao定义的<code>VIEW</code>字符串变量那样。另一种做法就是启用mybatis的<code>mapUnderscoreToCamelCase</code>的属性设置，来自动完成两种命名方式的转换。具体做法如下。</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span>
+<span class="code-line"><span class="cp">&lt;!DOCTYPE configuration</span></span>
+<span class="code-line"><span class="cp">        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span></span>
+<span class="code-line"><span class="cp">        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span></span>
+<span class="code-line"><span class="nt">&lt;configuration&gt;</span></span>
+<span class="code-line">    <span class="nt">&lt;settings&gt;</span></span>
+<span class="code-line">        <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&quot;mapUnderscoreToCamelCase&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span></span>
+<span class="code-line">    <span class="nt">&lt;/settings&gt;</span></span>
+<span class="code-line"><span class="nt">&lt;/configuration&gt;</span></span>
+</pre></div>
+
+
+<p>然后指定配置文件的位置</p>
+<div class="highlight"><pre><span class="code-line"><span></span>  <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;sqlSessionFactory&quot;</span> <span class="na">class=</span><span class="s">&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;</span><span class="nt">&gt;</span></span>
+<span class="code-line">        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;dataSource&quot;</span> <span class="na">ref=</span><span class="s">&quot;springUnitTest&quot;</span><span class="nt">/&gt;</span></span>
+<span class="code-line">        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;configLocation&quot;</span> <span class="na">value=</span><span class="s">&quot;classpath:mybatis-config.xml&quot;</span><span class="nt">&gt;&lt;/property&gt;</span></span>
+<span class="code-line">    <span class="nt">&lt;/bean&gt;</span></span>
+</pre></div>
+            
+            <section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="http://localhost:8000/java_serialization.html#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'bigpotato4future';
+        var disqus_identifier = 'http://localhost:8000/java_serialization.html';
+    var disqus_url = 'http://localhost:8000/java_serialization.html';
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+            <hr/>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2016-02-16T00:00:00+08:00"> 2 16, 2016</time>
+
+<h4>Last Updated</h4>
+<time datetime="2016-02-16T00:00:00+08:00"> 2 16, 2016</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="http://localhost:8000/categories.html#java-ref">java</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="http://localhost:8000/tags.html#java-ref">java
+                    <span>6</span>
+</a></li>
+                <li><a href="http://localhost:8000/tags.html#json-ref">json
+                    <span>1</span>
+</a></li>
+            </ul>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+            <script type="text/javascript">
+var disqus_shortname = 'bigpotato4future';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+<script  language="javascript" type="text/javascript">
+function uncollapse() {
+    if (window.location.hash.match(/^#comment-\d+$/)) {
+        $('#disqus_thread').collapse('show');
+    }
+}
+</script>
+<script type="text/javascript" language="JavaScript">
+uncollapse();
+window.onhashchange=function(){
+    if (window.location.hash.match(/^#comment-\d+$/))
+        window.location.reload(true);
+}
+</script>
+<script>
+$('#disqus_thread').on('shown', function () {
+    var link = document.getElementsByClassName('accordion-toggle');
+    var old_innerHTML = link[0].innerHTML;
+    $(link[0]).fadeOut(500, function() {
+        $(this).text('Click here to hide comments').fadeIn(500);
+    });
+    $('#disqus_thread').on('hidden', function () {
+        $(link[0]).fadeOut(500, function() {
+            $(this).text(old_innerHTML).fadeIn(500);
+        });
+    })
+})
+</script>
+
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
+</html>

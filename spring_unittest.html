@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="bigpotato" />
+        <meta name="copyright" content="bigpotato" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="java, spring, unit test, java, " />
+
+<meta property="og:title" content="Spring中进行单元测试 "/>
+<meta property="og:url" content="http://localhost:8000/spring_unittest.html" />
+<meta property="og:description" content="Spring中进行单元测试和集成测试 最近在学习利用spring mvc编写java web项目，以前在学习java时使用junit进行单元测试，但由于spring应用中要进行依赖注入，所以spring应用中不能直接利用junit进行单元测试。通过万能的google发现利用spring-test、junit4和Mockito可以方便的在spring项目中进行单元测试。下面对这两个框架分别进行介绍。 spring-test spring-test 是spring提供的一个单元测试框架，spring-test可以帮助我们自动加载spring的配置文件，依赖注入，自动对数据库操作进行回滚。 下面是一个利用spring-test和junit4在spring中进行单元测试的例子： 项目的目录结构如下： 在这个spring项目中，除了MVC层，还包含业务层和数据访问层，业务层有一个类AccountService，负责账号处理类的业务，它依赖于数据访问层AccountDao，这个类提供了对数据库的增删改查的方法。AccountService类中通过自动注入的方式来获得AccountDao的实例。各个类的实现如下： Account.java package com.springapp.domain; /** * Created by hjy on 6/28/15. */ public class Account { private long id; private String name; private ..." />
+<meta property="og:site_name" content="bigpotato&#39;s blog" />
+<meta property="og:article:author" content="bigpotato" />
+<meta property="og:article:published_time" content="2015-06-28T00:00:00+08:00" />
+<meta property="" content="2014-06-28T00:00:00+08:00" />
+<meta name="twitter:title" content="Spring中进行单元测试 ">
+<meta name="twitter:description" content="Spring中进行单元测试和集成测试 最近在学习利用spring mvc编写java web项目，以前在学习java时使用junit进行单元测试，但由于spring应用中要进行依赖注入，所以spring应用中不能直接利用junit进行单元测试。通过万能的google发现利用spring-test、junit4和Mockito可以方便的在spring项目中进行单元测试。下面对这两个框架分别进行介绍。 spring-test spring-test 是spring提供的一个单元测试框架，spring-test可以帮助我们自动加载spring的配置文件，依赖注入，自动对数据库操作进行回滚。 下面是一个利用spring-test和junit4在spring中进行单元测试的例子： 项目的目录结构如下： 在这个spring项目中，除了MVC层，还包含业务层和数据访问层，业务层有一个类AccountService，负责账号处理类的业务，它依赖于数据访问层AccountDao，这个类提供了对数据库的增删改查的方法。AccountService类中通过自动注入的方式来获得AccountDao的实例。各个类的实现如下： Account.java package com.springapp.domain; /** * Created by hjy on 6/28/15. */ public class Account { private long id; private String name; private ...">
+
+        <title>Spring中进行单元测试  · bigpotato&#39;s blog
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/custom.css" media="screen">
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://localhost:8000/"><span class=site-name>bigpotato's blog</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="http://localhost:8000">Home</a></li>
+                            <li ><a href="http://localhost:8000/categories.html">Categories</a></li>
+                            <li ><a href="http://localhost:8000/tags.html">Tags</a></li>
+                            <li ><a href="http://localhost:8000/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://localhost:8000/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="http://localhost:8000/spring_unittest.html"> Spring中进行单元测试  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            
+            <h2>Spring中进行单元测试和集成测试</h2>
+<p>最近在学习利用spring mvc编写java web项目，以前在学习java时使用junit进行单元测试，但由于spring应用中要进行依赖注入，所以spring应用中不能直接利用junit进行单元测试。通过万能的google发现利用spring-test、junit4和Mockito可以方便的在spring项目中进行单元测试。下面对这两个框架分别进行介绍。</p>
+<h3>spring-test</h3>
+<blockquote>
+<p>spring-test 是spring提供的一个单元测试框架，spring-test可以帮助我们自动加载spring的配置文件，依赖注入，自动对数据库操作进行回滚。</p>
+</blockquote>
+<p>下面是一个利用spring-test和junit4在spring中进行单元测试的例子：
+项目的目录结构如下：
+ <img src="../../images/spring_test_project.png" width = "300" height = "400" alt="图片名称" align=center /></p>
+<p>在这个spring项目中，除了MVC层，还包含业务层和数据访问层，业务层有一个类AccountService，负责账号处理类的业务，它依赖于数据访问层AccountDao，这个类提供了对数据库的增删改查的方法。AccountService类中通过自动注入的方式来获得AccountDao的实例。各个类的实现如下：</p>
+<p>Account.java</p>
+<div class="highlight"><pre><span class="code-line"><span></span> <span class="kn">package</span> <span class="nn">com.springapp.domain</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="kt">long</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">private</span> <span class="n">String</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPassword</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPassword</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Override</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="s">&quot;Account{&quot;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;id=&quot;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;, name=&#39;&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="s">&quot;, password=&#39;&quot;</span> <span class="o">+</span> <span class="n">password</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span></span>
+<span class="code-line">                <span class="sc">&#39;}&#39;</span><span class="o">;</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+</pre></div>
+
+
+<p>AccountDao.java</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kn">package</span> <span class="nn">com.springapp.dao</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.apache.ibatis.annotations.Select</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"><span class="nd">@Component</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AccountDao</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TABLENAME</span> <span class="o">=</span> <span class="s">&quot;account&quot;</span><span class="o">;</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">VIEW</span> <span class="o">=</span> <span class="s">&quot;id, name, password&quot;</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Select</span><span class="o">(</span><span class="s">&quot;select &quot;</span> <span class="o">+</span> <span class="n">VIEW</span> <span class="o">+</span> <span class="s">&quot; from &quot;</span> <span class="o">+</span> <span class="n">TABLENAME</span> <span class="o">+</span> <span class="s">&quot; where id = #{id}&quot;</span><span class="o">)</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">Account</span> <span class="nf">selectById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">);</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="o">}</span></span>
+</pre></div>
+
+
+<p>AccountService.java</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kn">package</span> <span class="nn">com.springapp.service</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.dao.AccountDao</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"><span class="nd">@Service</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AccountService</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="nd">@Autowired</span></span>
+<span class="code-line">    <span class="n">AccountDao</span> <span class="n">accountDao</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="kd">public</span> <span class="n">Account</span> <span class="nf">getById</span><span class="o">(</span><span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="k">return</span> <span class="n">accountDao</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"><span class="o">}</span></span>
+</pre></div>
+
+
+<p>AccountServiceTest.java</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="kn">package</span> <span class="nn">com.springapp</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.domain.Account</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">com.springapp.service.AccountService</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.junit.runner.RunWith</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.test.context.ContextConfiguration</span><span class="o">;</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">org.springframework.test.context.junit4.SpringJUnit4ClassRunner</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">Assert</span><span class="o">.</span><span class="na">assertNotNull</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="cm">/**</span></span>
+<span class="code-line"><span class="cm"> * Created by hjy on 6/28/15.</span></span>
+<span class="code-line"><span class="cm"> */</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span></span>
+<span class="code-line"><span class="nd">@ContextConfiguration</span><span class="o">(</span><span class="n">locations</span> <span class="o">=</span> <span class="o">{</span><span class="s">&quot;/spring_unittest.xml&quot;</span><span class="o">})</span></span>
+<span class="code-line"><span class="nd">@Transactional</span></span>
+<span class="code-line"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AccountServiceTest</span> <span class="o">{</span></span>
+<span class="code-line">    <span class="nd">@Autowired</span></span>
+<span class="code-line">    <span class="n">AccountService</span> <span class="n">accountService</span><span class="o">;</span></span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nd">@Test</span></span>
+<span class="code-line">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelectById</span><span class="o">()</span> <span class="o">{</span></span>
+<span class="code-line">        <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">accountService</span><span class="o">.</span><span class="na">getById</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span></span>
+<span class="code-line">        <span class="n">assertNotNull</span><span class="o">(</span><span class="n">account</span><span class="o">);</span></span>
+<span class="code-line">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">account</span><span class="o">);</span></span>
+<span class="code-line">    <span class="o">}</span></span>
+<span class="code-line"><span class="o">}</span></span>
+</pre></div>
+
+
+<p>对单元测试的这个类解释一下</p>
+<ul>
+<li>@RunWith是Junit 提供的注解，用来说明此测试类的运行者，这里用了 SpringJUnit4ClassRunner，这个类是一个针对 Junit 运行环境的自定义扩展，用来标准化在 Spring 环境中 Junit4.5 的测试用例，例如支持的注释标签的标准化</li>
+<li>@ContextConfiguration Spring test context 提供的注解，用来指定 Spring 配置信息的来源，支持指定 XML 文件位置或者 Spring 配置类名，这里我们指定 classpath 下的 spring_unittest.xml 为配置文件的位置。</li>
+<li>@Transactional 注释标签是表明此测试类的事务启用，这样所有的测试方案都会自动的 rollback，即您不用自己清除自己所做的任何对数据库的变更了</li>
+<li>@Autowired是spring中自动注入的注解</li>
+</ul>
+            
+            <section>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="http://localhost:8000/spring_unittest.html#disqus_thread">
+                Comments
+            </a>
+        </div>
+        <div id="disqus_thread" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <div class="comments">
+                    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'bigpotato4future';
+        var disqus_identifier = 'http://localhost:8000/spring_unittest.html';
+    var disqus_url = 'http://localhost:8000/spring_unittest.html';
+
+    (function() {
+         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+     })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+            <hr/>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2015-06-28T00:00:00+08:00"> 6 28, 2015</time>
+
+<h4>Last Updated</h4>
+<time datetime="2014-06-28T00:00:00+08:00"> 6 28, 2014</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="http://localhost:8000/categories.html#java-ref">java</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="http://localhost:8000/tags.html#java-ref">java
+                    <span>6</span>
+</a></li>
+                <li><a href="http://localhost:8000/tags.html#spring-ref">spring
+                    <span>1</span>
+</a></li>
+                <li><a href="http://localhost:8000/tags.html#unit-test-ref">unit test
+                    <span>1</span>
+</a></li>
+            </ul>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+            <script type="text/javascript">
+var disqus_shortname = 'bigpotato4future';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+<script  language="javascript" type="text/javascript">
+function uncollapse() {
+    if (window.location.hash.match(/^#comment-\d+$/)) {
+        $('#disqus_thread').collapse('show');
+    }
+}
+</script>
+<script type="text/javascript" language="JavaScript">
+uncollapse();
+window.onhashchange=function(){
+    if (window.location.hash.match(/^#comment-\d+$/))
+        window.location.reload(true);
+}
+</script>
+<script>
+$('#disqus_thread').on('shown', function () {
+    var link = document.getElementsByClassName('accordion-toggle');
+    var old_innerHTML = link[0].innerHTML;
+    $(link[0]).fadeOut(500, function() {
+        $(this).text('Click here to hide comments').fadeIn(500);
+    });
+    $('#disqus_thread').on('hidden', function () {
+        $(link[0]).fadeOut(500, function() {
+            $(this).text(old_innerHTML).fadeIn(500);
+        });
+    })
+})
+</script>
+
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
+</html>
