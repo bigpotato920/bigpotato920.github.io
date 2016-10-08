@@ -254,8 +254,9 @@
 <p>这种方法相当于第一种方法，但更为简洁，并且默认是线程安全的，还能够防止反序列化重新创建新德对象。是实现单例模式最好的方法。</p>
 <h3 id="_3">通过私有构造函数禁止类的实例化</h3>
             
-            
-            <hr/>
+
+            <!--             
+ -->            <hr/>
         </div>
         <section>
         <div class="span2" style="float:right;font-size:0.9em;">
@@ -307,47 +308,7 @@
             }
         </script>
 
-            <hr/>
-        <section class="comments" id="comments">
-            <h2>Comments</h2>
-    <!--         <div class="ds-thread" data-thread-key="create_and_destroy_objects" data-title="Effective Java笔记 -- Creating and Destroying Objects" data-url="/create_and_destroy_objects.html"></div> -->
-            <script type="text/javascript">
-                var duoshuoQuery = {short_name:"bigpotato920"};
-                (function() {
-                    var ds = document.createElement('script');
-                    ds.type = 'text/javascript';ds.async = true;
-                    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                    ds.charset = 'UTF-8';
-                    (document.getElementsByTagName('head')[0]
-                     || document.getElementsByTagName('body')[0]).appendChild(ds);
-                })();
-            </script>
-            <script type="text/javascript">
-                function toggleDuoshuoComments(container, id, title, url){
-                    if(jQuery(container).has("div").length>0){
-                        jQuery(container).empty();
-                        return;
-                    }
-                    var el = document.createElement('div');
-                    el.setAttribute('class','ds-thread');
-                    el.setAttribute('data-thread-key', id);
-                    el.setAttribute('data-title',title);
-                    el.setAttribute('data-url', url);
-                    DUOSHUO.EmbedThread(el);
-                    jQuery(container).append(el);
-                }
-            </script>
-            <a href="javascript:void(0);" onclick="toggleDuoshuoComments('#comment-box', 'create_and_destroy_objects', 'Effective Java笔记 -- Creating and Destroying Objects' , '/create_and_destroy_objects.html');">
-            查看评论</a>
-            <div id="comment-box" ></div>
-            <hr/>
-            <noscript>Please enable JavaScript to view the <a href="http://duoshuo.com/">comments powered by
-            Duoshuo.</a></noscript>
-            <a href="http://duoshuo.com" class="dsq-brlink">comments powered by <span>Duoshuo</span></a>
-
-        </section>
-
-
+    
     </body>
     <!-- Theme: Elegant built for Pelican
     License : http://oncrashreboot.com/pelican-elegant -->
