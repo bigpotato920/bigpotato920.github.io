@@ -13,7 +13,7 @@
 <meta name="keywords" content="java, factory, singleton, objects, java, " />
 
 <meta property="og:title" content="Effective Java笔记 -- Creating and Destroying Objects "/>
-<meta property="og:url" content="https://bigpotato920.github.io/create_and_destroy_objects.html" />
+<meta property="og:url" content="/create_and_destroy_objects.html" />
 <meta property="og:description" content="effective java 笔记" />
 <meta property="og:site_name" content="bigpotato&#39;s blog" />
 <meta property="og:article:author" content="bigpotato" />
@@ -26,10 +26,10 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://bigpotato920.github.io/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://bigpotato920.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://bigpotato920.github.io/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://bigpotato920.github.io/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
     </head>
     <body>
         <div id="content-sans-footer">
@@ -41,14 +41,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="https://bigpotato920.github.io/"><span class=site-name>bigpotato's blog</span></a>
+                    <a class="brand" href="/"><span class=site-name>bigpotato's blog</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="https://bigpotato920.github.io">Home</a></li>
-                            <li ><a href="https://bigpotato920.github.io/categories.html">Categories</a></li>
-                            <li ><a href="https://bigpotato920.github.io/tags.html">Tags</a></li>
-                            <li ><a href="https://bigpotato920.github.io/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="https://bigpotato920.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="">Home</a></li>
+                            <li ><a href="/categories.html">Categories</a></li>
+                            <li ><a href="/tags.html">Tags</a></li>
+                            <li ><a href="/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://bigpotato920.github.io/create_and_destroy_objects.html"> Effective Java笔记 -- Creating and Destroying Objects  </a></h1>
+    <h1><a href="/create_and_destroy_objects.html"> Effective Java笔记 -- Creating and Destroying Objects  </a></h1>
     </header>
 </div>
 
@@ -254,40 +254,7 @@
 <p>这种方法相当于第一种方法，但更为简洁，并且默认是线程安全的，还能够防止反序列化重新创建新德对象。是实现单例模式最好的方法。</p>
 <h3 id="_3">通过私有构造函数禁止类的实例化</h3>
             
-            <section>
-<div class="accordion" id="accordion2">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                href="https://bigpotato920.github.io/create_and_destroy_objects.html#disqus_thread">
-                Comments
-            </a>
-        </div>
-        <div id="disqus_thread" class="accordion-body collapse">
-            <div class="accordion-inner">
-                <div class="comments">
-                    <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'bigpotato4future';
-        var disqus_identifier = 'https://bigpotato920.github.io/create_and_destroy_objects.html';
-    var disqus_url = 'https://bigpotato920.github.io/create_and_destroy_objects.html';
-
-    (function() {
-         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-     })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
-
+            
             <hr/>
         </div>
         <section>
@@ -299,19 +266,19 @@
 <time datetime="2015-05-01T00:00:00+08:00"> 5 1, 2015</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="https://bigpotato920.github.io/categories.html#java-ref">java</a>
+            <a class="category-link" href="/categories.html#java-ref">java</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://bigpotato920.github.io/tags.html#factory-ref">factory
+                <li><a href="/tags.html#factory-ref">factory
                     <span>1</span>
 </a></li>
-                <li><a href="https://bigpotato920.github.io/tags.html#java-ref">java
+                <li><a href="/tags.html#java-ref">java
                     <span>6</span>
 </a></li>
-                <li><a href="https://bigpotato920.github.io/tags.html#objects-ref">objects
+                <li><a href="/tags.html#objects-ref">objects
                     <span>1</span>
 </a></li>
-                <li><a href="https://bigpotato920.github.io/tags.html#singleton-ref">singleton
+                <li><a href="/tags.html#singleton-ref">singleton
                     <span>1</span>
 </a></li>
             </ul>
@@ -340,43 +307,45 @@
             }
         </script>
 
+            <hr/>
+        <section class="comments" id="comments">
+            <h2>Comments</h2>
+    <!--         <div class="ds-thread" data-thread-key="create_and_destroy_objects" data-title="Effective Java笔记 -- Creating and Destroying Objects" data-url="/create_and_destroy_objects.html"></div> -->
             <script type="text/javascript">
-var disqus_shortname = 'bigpotato4future';
-(function () {
-    var s = document.createElement('script'); s.async = true;
-    s.type = 'text/javascript';
-    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-}());
-</script>
-<script  language="javascript" type="text/javascript">
-function uncollapse() {
-    if (window.location.hash.match(/^#comment-\d+$/)) {
-        $('#disqus_thread').collapse('show');
-    }
-}
-</script>
-<script type="text/javascript" language="JavaScript">
-uncollapse();
-window.onhashchange=function(){
-    if (window.location.hash.match(/^#comment-\d+$/))
-        window.location.reload(true);
-}
-</script>
-<script>
-$('#disqus_thread').on('shown', function () {
-    var link = document.getElementsByClassName('accordion-toggle');
-    var old_innerHTML = link[0].innerHTML;
-    $(link[0]).fadeOut(500, function() {
-        $(this).text('Click here to hide comments').fadeIn(500);
-    });
-    $('#disqus_thread').on('hidden', function () {
-        $(link[0]).fadeOut(500, function() {
-            $(this).text(old_innerHTML).fadeIn(500);
-        });
-    })
-})
-</script>
+                var duoshuoQuery = {short_name:"bigpotato920"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0]
+                     || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <script type="text/javascript">
+                function toggleDuoshuoComments(container, id, title, url){
+                    if(jQuery(container).has("div").length>0){
+                        jQuery(container).empty();
+                        return;
+                    }
+                    var el = document.createElement('div');
+                    el.setAttribute('class','ds-thread');
+                    el.setAttribute('data-thread-key', id);
+                    el.setAttribute('data-title',title);
+                    el.setAttribute('data-url', url);
+                    DUOSHUO.EmbedThread(el);
+                    jQuery(container).append(el);
+                }
+            </script>
+            <a href="javascript:void(0);" onclick="toggleDuoshuoComments('#comment-box', 'create_and_destroy_objects', 'Effective Java笔记 -- Creating and Destroying Objects' , '/create_and_destroy_objects.html');">
+            查看评论</a>
+            <div id="comment-box" ></div>
+            <hr/>
+            <noscript>Please enable JavaScript to view the <a href="http://duoshuo.com/">comments powered by
+            Duoshuo.</a></noscript>
+            <a href="http://duoshuo.com" class="dsq-brlink">comments powered by <span>Duoshuo</span></a>
+
+        </section>
 
 
     </body>

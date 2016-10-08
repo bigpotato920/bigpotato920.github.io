@@ -13,7 +13,7 @@
 <meta name="keywords" content="java, spring, unit test, java, " />
 
 <meta property="og:title" content="Spring中进行单元测试 "/>
-<meta property="og:url" content="https://bigpotato920.github.io/spring_unittest.html" />
+<meta property="og:url" content="/spring_unittest.html" />
 <meta property="og:description" content="Spring中进行单元测试和集成测试 最近在学习利用spring mvc编写java web项目，以前在学习java时使用junit进行单元测试，但由于spring应用中要进行依赖注入，所以spring应用中不能直接利用junit进行单元测试。通过万能的google发现利用spring-test、junit4和Mockito可以方便的在spring项目中进行单元测试。下面对这两个框架分别进行介绍。 spring-test spring-test 是spring提供的一个单元测试框架，spring-test可以帮助我们自动加载spring的配置文件，依赖注入，自动对数据库操作进行回滚。 下面是一个利用spring-test和junit4在spring中进行单元测试的例子： 项目的目录结构如下： 在这个spring项目中，除了MVC层，还包含业务层和数据访问层，业务层有一个类AccountService，负责账号处理类的业务，它依赖于数据访问层AccountDao，这个类提供了对数据库的增删改查的方法。AccountService类中通过自动注入的方式来获得AccountDao的实例。各个类的实现如下： Account.java package com.springapp.domain; /** * Created by hjy on 6/28/15. */ public class Account { private long id; private String name; private ..." />
 <meta property="og:site_name" content="bigpotato&#39;s blog" />
 <meta property="og:article:author" content="bigpotato" />
@@ -26,10 +26,10 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://bigpotato920.github.io/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://bigpotato920.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://bigpotato920.github.io/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://bigpotato920.github.io/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="/theme/css/custom.css" media="screen">
     </head>
     <body>
         <div id="content-sans-footer">
@@ -41,14 +41,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="https://bigpotato920.github.io/"><span class=site-name>bigpotato's blog</span></a>
+                    <a class="brand" href="/"><span class=site-name>bigpotato's blog</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="https://bigpotato920.github.io">Home</a></li>
-                            <li ><a href="https://bigpotato920.github.io/categories.html">Categories</a></li>
-                            <li ><a href="https://bigpotato920.github.io/tags.html">Tags</a></li>
-                            <li ><a href="https://bigpotato920.github.io/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="https://bigpotato920.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="">Home</a></li>
+                            <li ><a href="/categories.html">Categories</a></li>
+                            <li ><a href="/tags.html">Tags</a></li>
+                            <li ><a href="/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="https://bigpotato920.github.io/spring_unittest.html"> Spring中进行单元测试  </a></h1>
+    <h1><a href="/spring_unittest.html"> Spring中进行单元测试  </a></h1>
     </header>
 </div>
 
@@ -212,40 +212,7 @@
 <li>@Autowired是spring中自动注入的注解</li>
 </ul>
             
-            <section>
-<div class="accordion" id="accordion2">
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                href="https://bigpotato920.github.io/spring_unittest.html#disqus_thread">
-                Comments
-            </a>
-        </div>
-        <div id="disqus_thread" class="accordion-body collapse">
-            <div class="accordion-inner">
-                <div class="comments">
-                    <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'bigpotato4future';
-        var disqus_identifier = 'https://bigpotato920.github.io/spring_unittest.html';
-    var disqus_url = 'https://bigpotato920.github.io/spring_unittest.html';
-
-    (function() {
-         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-     })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
-
+            
             <hr/>
         </div>
         <section>
@@ -257,16 +224,16 @@
 <time datetime="2014-06-28T00:00:00+08:00"> 6 28, 2014</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="https://bigpotato920.github.io/categories.html#java-ref">java</a>
+            <a class="category-link" href="/categories.html#java-ref">java</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://bigpotato920.github.io/tags.html#java-ref">java
+                <li><a href="/tags.html#java-ref">java
                     <span>6</span>
 </a></li>
-                <li><a href="https://bigpotato920.github.io/tags.html#spring-ref">spring
+                <li><a href="/tags.html#spring-ref">spring
                     <span>1</span>
 </a></li>
-                <li><a href="https://bigpotato920.github.io/tags.html#unit-test-ref">unit test
+                <li><a href="/tags.html#unit-test-ref">unit test
                     <span>1</span>
 </a></li>
             </ul>
@@ -295,43 +262,45 @@
             }
         </script>
 
+            <hr/>
+        <section class="comments" id="comments">
+            <h2>Comments</h2>
+    <!--         <div class="ds-thread" data-thread-key="spring_unittest" data-title="Spring中进行单元测试" data-url="/spring_unittest.html"></div> -->
             <script type="text/javascript">
-var disqus_shortname = 'bigpotato4future';
-(function () {
-    var s = document.createElement('script'); s.async = true;
-    s.type = 'text/javascript';
-    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-}());
-</script>
-<script  language="javascript" type="text/javascript">
-function uncollapse() {
-    if (window.location.hash.match(/^#comment-\d+$/)) {
-        $('#disqus_thread').collapse('show');
-    }
-}
-</script>
-<script type="text/javascript" language="JavaScript">
-uncollapse();
-window.onhashchange=function(){
-    if (window.location.hash.match(/^#comment-\d+$/))
-        window.location.reload(true);
-}
-</script>
-<script>
-$('#disqus_thread').on('shown', function () {
-    var link = document.getElementsByClassName('accordion-toggle');
-    var old_innerHTML = link[0].innerHTML;
-    $(link[0]).fadeOut(500, function() {
-        $(this).text('Click here to hide comments').fadeIn(500);
-    });
-    $('#disqus_thread').on('hidden', function () {
-        $(link[0]).fadeOut(500, function() {
-            $(this).text(old_innerHTML).fadeIn(500);
-        });
-    })
-})
-</script>
+                var duoshuoQuery = {short_name:"bigpotato920"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0]
+                     || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+            </script>
+            <script type="text/javascript">
+                function toggleDuoshuoComments(container, id, title, url){
+                    if(jQuery(container).has("div").length>0){
+                        jQuery(container).empty();
+                        return;
+                    }
+                    var el = document.createElement('div');
+                    el.setAttribute('class','ds-thread');
+                    el.setAttribute('data-thread-key', id);
+                    el.setAttribute('data-title',title);
+                    el.setAttribute('data-url', url);
+                    DUOSHUO.EmbedThread(el);
+                    jQuery(container).append(el);
+                }
+            </script>
+            <a href="javascript:void(0);" onclick="toggleDuoshuoComments('#comment-box', 'spring_unittest', 'Spring中进行单元测试' , '/spring_unittest.html');">
+            查看评论</a>
+            <div id="comment-box" ></div>
+            <hr/>
+            <noscript>Please enable JavaScript to view the <a href="http://duoshuo.com/">comments powered by
+            Duoshuo.</a></noscript>
+            <a href="http://duoshuo.com" class="dsq-brlink">comments powered by <span>Duoshuo</span></a>
+
+        </section>
 
 
     </body>
