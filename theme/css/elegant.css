@@ -1,9 +1,10 @@
 /* Base */
 /* #push.height = -#content-sans-footer.margin-bottom = #footer.margin-top + ul.footer-content */
 @font-face {
-    font-family: 'Lato';
-    src: url('../fonts/Lato-Regular.ttf')
+    font-family: 'Bookerly';
+    src: url('http://7xiijd.com1.z0.glb.clouddn.com/Bookerly-Regular.ttf')
 }
+
 body,
 html {
     height: 100%;
