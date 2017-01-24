@@ -1,5 +1,9 @@
 /* Base */
 /* #push.height = -#content-sans-footer.margin-bottom = #footer.margin-top + ul.footer-content */
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Regular.ttf')
+}
 body,
 html {
     height: 100%;
@@ -215,7 +219,7 @@ article div.article-content ul:not(.articles-timeline) a:hover {
     position:absolute;
 }
 .article-content blockquote {
-    font-family: 'Helvetica Neue', Helvetica, Arial, Sans-Serif;
+    font-family: 'Lato', Helvetica Neue', Helvetica, Arial, Sans-Serif;
     font-size: inherit;
     font-variant: normal;
     line-height: 1.7em;
